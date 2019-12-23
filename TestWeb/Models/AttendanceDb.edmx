@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AttendanceDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="M101_USER">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+          </Key>
+          <Property Name="USER_ID" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="USER_NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DELETE_FLG" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="CREATE_DT" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UPDATE_DT" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UPDATE_USER_ID" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="M102_USER_AUTH">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+          </Key>
+          <Property Name="USER_ID" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="PASSWORD" Type="nchar" MaxLength="10" />
+          <Property Name="LAST_LOGIN_DT" Type="datetime2" Precision="7" />
+          <Property Name="DELETE_FLG" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="CREATE_DT" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UPDATE_DT" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UPDATE_USER_ID" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T20_ATTENDANCE_TIME">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+            <PropertyRef Name="WORK_YEAR" />
+          </Key>
+          <Property Name="USER_ID" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="WORK_YEAR" Type="int" Nullable="false" />
+          <Property Name="WORK_MONTH" Type="int" Nullable="false" />
+          <Property Name="WORK_DAY" Type="int" Nullable="false" />
+          <Property Name="START_TIME" Type="time" Precision="7" />
+          <Property Name="END_TIME" Type="time" Precision="7" />
+          <Property Name="REST_TIME" Type="time" Precision="7" />
+          <Property Name="REMARKS" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityContainer Name="AttendanceDbModelStoreContainer">
+          <EntitySet Name="M101_USER" EntityType="Self.M101_USER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="M102_USER_AUTH" EntityType="Self.M102_USER_AUTH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T20_ATTENDANCE_TIME" EntityType="Self.T20_ATTENDANCE_TIME" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AttendanceDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="T20AttendanceTime">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="WorkYear" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" >
+            <Documentation>
+              <Summary>ユーザーID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="WorkYear" Type="Int32" Nullable="false" />
+          <Property Name="WorkMonth" Type="Int32" Nullable="false" />
+          <Property Name="WorkDay" Type="Int32" Nullable="false" />
+          <Property Name="StartTime" Type="Time" Precision="7" />
+          <Property Name="EndTime" Type="Time" Precision="7" />
+          <Property Name="RestTime" Type="Time" Precision="7" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="AttendanceDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="T20_ATTENDANCE_TIME" EntityType="AttendanceDbModel.T20AttendanceTime" />
+          <EntitySet Name="M101_USER" EntityType="AttendanceDbModel.M101User" />
+          <EntitySet Name="M102_USER_AUTH" EntityType="AttendanceDbModel.M102UserAuth" />
+        </EntityContainer>
+        <EntityType Name="M101User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="USER_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DELETE_FLG" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="CREATE_DT" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UPDATE_DT" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UPDATE_USER_ID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="M102UserAuth">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+          </Key>
+          <Property Name="USER_ID" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="LAST_LOGIN_DT" Type="DateTime" Precision="7" />
+          <Property Name="DELETE_FLG" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="CREATE_DT" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UPDATE_DT" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UPDATE_USER_ID" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AttendanceDbModelStoreContainer" CdmEntityContainer="AttendanceDbEntities">
+          <EntitySetMapping Name="T20_ATTENDANCE_TIME">
+            <EntityTypeMapping TypeName="AttendanceDbModel.T20AttendanceTime">
+              <MappingFragment StoreEntitySet="T20_ATTENDANCE_TIME">
+                <ScalarProperty Name="UserId" ColumnName="USER_ID" />
+                <ScalarProperty Name="WorkYear" ColumnName="WORK_YEAR" />
+                <ScalarProperty Name="WorkMonth" ColumnName="WORK_MONTH" />
+                <ScalarProperty Name="WorkDay" ColumnName="WORK_DAY" />
+                <ScalarProperty Name="StartTime" ColumnName="START_TIME" />
+                <ScalarProperty Name="EndTime" ColumnName="END_TIME" />
+                <ScalarProperty Name="RestTime" ColumnName="REST_TIME" />
+                <ScalarProperty Name="Remarks" ColumnName="REMARKS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="M101_USER">
+            <EntityTypeMapping TypeName="AttendanceDbModel.M101User">
+              <MappingFragment StoreEntitySet="M101_USER">
+                <ScalarProperty Name="UPDATE_USER_ID" ColumnName="UPDATE_USER_ID" />
+                <ScalarProperty Name="UPDATE_DT" ColumnName="UPDATE_DT" />
+                <ScalarProperty Name="CREATE_DT" ColumnName="CREATE_DT" />
+                <ScalarProperty Name="DELETE_FLG" ColumnName="DELETE_FLG" />
+                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+                <ScalarProperty Name="UserId" ColumnName="USER_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="M102_USER_AUTH">
+            <EntityTypeMapping TypeName="AttendanceDbModel.M102UserAuth">
+              <MappingFragment StoreEntitySet="M102_USER_AUTH">
+                <ScalarProperty Name="UPDATE_USER_ID" ColumnName="UPDATE_USER_ID" />
+                <ScalarProperty Name="UPDATE_DT" ColumnName="UPDATE_DT" />
+                <ScalarProperty Name="CREATE_DT" ColumnName="CREATE_DT" />
+                <ScalarProperty Name="DELETE_FLG" ColumnName="DELETE_FLG" />
+                <ScalarProperty Name="LAST_LOGIN_DT" ColumnName="LAST_LOGIN_DT" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="なし" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
