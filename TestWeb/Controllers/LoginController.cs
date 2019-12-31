@@ -62,6 +62,12 @@ namespace TestWeb.Controllers
         /// <returns>リダイレクト</returns>
         public ActionResult Login(LoginInputModel inputModel)
         {
+            // 入力エラーがあった場合
+            if (!this.ModelState.IsValid)
+            {
+                return View("Login");
+            }
+
             // ログイン
             UserInfoModel userInfoModel = _LoginService.Login(inputModel);
             if (userInfoModel == null)
