@@ -34,6 +34,13 @@ namespace TestWeb.Controllers
         /// <returns>View</returns>
         public ActionResult Index()
         {
+            // リダイレクトされた場合でModelStateが引き渡された場合はModelStateをマージする。
+            ModelStateDictionary modelState = (ModelStateDictionary)this.TempData["ModelState"];
+            if (modelState != null)
+            {
+                this.ModelState.Merge(modelState);
+            }
+
             LoginInitInputModel inputModel = new LoginInitInputModel();
 
             // ユーザーIDをCookieから取得する
@@ -49,6 +56,7 @@ namespace TestWeb.Controllers
             this.Session.Clear();
 
             // ViewModelを生成する
+
             LoginViewModel viewModel = _LoginService.Init(inputModel);
 
             // ViewModelを使ってLoginビューを表示する
@@ -65,7 +73,10 @@ namespace TestWeb.Controllers
             // 入力エラーがあった場合
             if (!this.ModelState.IsValid)
             {
-                return View("Login");
+                // 初期表示にリダイレクト
+                // リダイレクトするとModelStateが失われ、入力内容がViewに反映されなくなるのでModelStateを退避する。
+                this.TempData.Add("ModelState", this.ModelState);
+                return RedirectToAction("Index");
             }
 
             // ログイン
