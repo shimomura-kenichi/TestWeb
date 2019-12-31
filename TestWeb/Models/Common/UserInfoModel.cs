@@ -1,34 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace TestWeb.Models.Login.ViewModel
+namespace TestWeb.Models.Common
 {
     /// <summary>
-    /// ログインビューモデル
+    /// ユーザー情報モデル
     /// </summary>
-    public class LoginViewModel
+    public class UserInfoModel
     {
         /// <summary>
         /// ユーザーID
         /// </summary>
-        [DisplayName("ユーザーID")]
         public string UserId { get; set; }
 
         /// <summary>
         /// パスワード
         /// </summary>
-        [DisplayName("パスワード")]
-        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         /// <summary>
-        /// お知らせ
+        /// ユーザー名
         /// </summary>
-        [DisplayName("お知らせ")]
-        public string Infomation { get; set; }
+        public string UserName { get; set; }
+
+        /// <summary>
+        /// 最終ログイン日時
+        /// </summary>
+        public Nullable<System.DateTime> LastLoginDttm { get; set; }
+
     }
 }

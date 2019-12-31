@@ -1,0 +1,10 @@
+﻿@using TestWeb.Models.Common;
+
+@{
+    ViewBag.Title = "Top";
+
+}
+
+<h2>Top</h2>
+@Html.DisplayFor(m => ((UserInfoModel)Session["UserInfoModel"]).UserId)
+

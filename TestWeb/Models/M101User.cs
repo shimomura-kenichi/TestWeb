@@ -16,10 +16,10 @@ namespace TestWeb.Models
     public partial class M101User
     {
         public string UserId { get; set; }
-        public string USER_NAME { get; set; }
-        public string DELETE_FLG { get; set; }
-        public System.DateTime CREATE_DT { get; set; }
-        public System.DateTime UPDATE_DT { get; set; }
-        public string UPDATE_USER_ID { get; set; }
+        public string UserName { get; set; }
+        public string DeleteFlg { get; set; }
+        public string UpdateUserId { get; set; }
+        public System.DateTime CreateDttm { get; set; }
+        public System.DateTime UpdateDttm { get; set; }
     }
 }

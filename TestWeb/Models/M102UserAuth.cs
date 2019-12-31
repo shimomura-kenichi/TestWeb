@@ -15,12 +15,12 @@ namespace TestWeb.Models
     
     public partial class M102UserAuth
     {
-        public string USER_ID { get; set; }
-        public string PASSWORD { get; set; }
-        public Nullable<System.DateTime> LAST_LOGIN_DT { get; set; }
-        public string DELETE_FLG { get; set; }
-        public System.DateTime CREATE_DT { get; set; }
-        public System.DateTime UPDATE_DT { get; set; }
-        public string UPDATE_USER_ID { get; set; }
+        public string UserId { get; set; }
+        public string Password { get; set; }
+        public string DeleteFlg { get; set; }
+        public string UpdateUserId { get; set; }
+        public Nullable<System.DateTime> LastLoginDttm { get; set; }
+        public System.DateTime CreateDttm { get; set; }
+        public System.DateTime UpdateDttm { get; set; }
     }
 }

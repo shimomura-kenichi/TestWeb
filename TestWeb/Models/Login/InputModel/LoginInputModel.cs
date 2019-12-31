@@ -5,30 +5,22 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace TestWeb.Models.Login.ViewModel
+namespace TestWeb.Models.Login.InputModel
 {
     /// <summary>
-    /// ログインビューモデル
+    /// ログイン入力モデル
     /// </summary>
-    public class LoginViewModel
+    public class LoginInputModel
     {
-        /// <summary>
-        /// ユーザーID
-        /// </summary>
         [DisplayName("ユーザーID")]
+        [Required()]
+        [MaxLength(200)]
         public string UserId { get; set; }
 
-        /// <summary>
-        /// パスワード
-        /// </summary>
         [DisplayName("パスワード")]
         [DataType(DataType.Password)]
+        [Required()]
+        [MaxLength(50)]
         public string Password { get; set; }
-
-        /// <summary>
-        /// お知らせ
-        /// </summary>
-        [DisplayName("お知らせ")]
-        public string Infomation { get; set; }
     }
 }

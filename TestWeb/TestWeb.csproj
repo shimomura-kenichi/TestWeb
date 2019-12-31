@@ -151,7 +151,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\TopController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -170,6 +171,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AttendanceDb.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Common\UserInfoModel.cs" />
+    <Compile Include="Models\Login\InputModel\LoginInitInputModel.cs" />
+    <Compile Include="Models\Login\InputModel\LoginInputModel.cs" />
+    <Compile Include="Models\Login\LoginService.cs" />
     <Compile Include="Models\Login\ViewModel\LoginViewModel.cs" />
     <Compile Include="Models\M101User.cs">
       <DependentUpon>AttendanceDb.tt</DependentUpon>
@@ -177,6 +182,8 @@
     <Compile Include="Models\M102UserAuth.cs">
       <DependentUpon>AttendanceDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Repository\RepositoryConst.cs" />
+    <Compile Include="Models\Repository\UserInfoRepository.cs" />
     <Compile Include="Models\T20AttendanceTime.cs">
       <DependentUpon>AttendanceDb.tt</DependentUpon>
     </Compile>
@@ -236,13 +243,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Top\Top.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Login\InputModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -262,6 +266,9 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
