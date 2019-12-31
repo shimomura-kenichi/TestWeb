@@ -171,7 +171,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AttendanceDb.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Common\IService.cs" />
+    <Compile Include="Models\Common\ServiceMessage.cs" />
     <Compile Include="Models\Common\UserInfoModel.cs" />
+    <Compile Include="Models\Login\ILoginService.cs" />
     <Compile Include="Models\Login\InputModel\LoginInitInputModel.cs" />
     <Compile Include="Models\Login\InputModel\LoginInputModel.cs" />
     <Compile Include="Models\Login\LoginService.cs" />
@@ -188,6 +191,11 @@
       <DependentUpon>AttendanceDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\AttendanceDb.mdf" />
@@ -246,7 +254,12 @@
     <Content Include="Views\Top\Top.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -81,11 +81,23 @@ namespace TestWeb.Controllers
 
             // ログイン
             UserInfoModel userInfoModel = _LoginService.Login(inputModel);
-            if (userInfoModel == null)
+            if (!_LoginService.ServiceMessage.IsValid)
             {
-                // エラー時は初期表示にリダイレクトする
+                // エラー時
+
+                // サービスのエラーメッセージをModelStateにコピーする
+                foreach (KeyValuePair<string, List<string>> data in _LoginService.ServiceMessage.ErrorMessage)
+                {
+                    foreach (string msg in data.Value)
+                    {
+                        this.ModelState.AddModelError(data.Key, msg);
+                    }
+                }
+                // モデルステートを引き継ぎ、初期表示にリダイレクトする
+                this.TempData.Add("ModelState", this.ModelState);
                 return RedirectToAction("Index");
             }
+
             // ログイン成功時の処理
 
             // UserIdをCookieに保存する
