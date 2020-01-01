@@ -9,7 +9,7 @@ namespace TestWeb.Models.Repository
     /// <summary>
     /// ユーザー情報リポジトリ
     /// </summary>
-    public class UserInfoRepository
+    public class UserInfoRepository : IUserInfoRepository
     {
         /// <summary>
         /// 結果コード：排他エラー（更新時該当なし）

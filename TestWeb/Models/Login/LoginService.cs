@@ -20,7 +20,7 @@ namespace TestWeb.Models.Login
         /// <summary>
         /// ユーザー情報リポジトリ
         /// </summary>
-        private UserInfoRepository _UserInfoRepository;
+        private IUserInfoRepository _UserInfoRepository;
 
         /// <summary>
         /// Dbコンテキスト
@@ -40,10 +40,11 @@ namespace TestWeb.Models.Login
         /// <summary>
         /// コンストラクター
         /// </summary>
-        public LoginService()
+        /// <param name="userInfoRepository">ユーザー情報リポジトリ</param>
+        public LoginService(AttendanceDbEntities dbContext, IUserInfoRepository userInfoRepository)
         {
-            _DbContext = new AttendanceDbEntities();
-            _UserInfoRepository = new UserInfoRepository(_DbContext);
+            _DbContext = dbContext;
+            _UserInfoRepository = userInfoRepository;
             this.ServiceMessage = new ServiceMessage();
         }
 

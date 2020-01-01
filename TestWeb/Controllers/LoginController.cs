@@ -18,14 +18,14 @@ namespace TestWeb.Controllers
         /// <summary>
         /// ログインサービス
         /// </summary>
-        private LoginService _LoginService;
+        private ILoginService _LoginService;
 
         /// <summary>
         /// コンストラクター
         /// </summary>
-        public LoginController()
+        public LoginController(ILoginService loginService)
         {
-            _LoginService = new LoginService();
+            _LoginService = loginService;
         }
 
         /// <summary>

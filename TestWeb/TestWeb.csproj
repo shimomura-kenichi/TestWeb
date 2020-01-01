@@ -185,6 +185,7 @@
     <Compile Include="Models\M102UserAuth.cs">
       <DependentUpon>AttendanceDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Repository\IUserInfoRepository.cs" />
     <Compile Include="Models\Repository\RepositoryConst.cs" />
     <Compile Include="Models\Repository\UserInfoRepository.cs" />
     <Compile Include="Models\T20AttendanceTime.cs">

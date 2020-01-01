@@ -1,6 +1,9 @@
 using System;
-
+using TestWeb.Models;
+using TestWeb.Models.Login;
+using TestWeb.Models.Repository;
 using Unity;
+using Unity.AspNet.Mvc;
 
 namespace TestWeb
 {
@@ -36,12 +39,19 @@ namespace TestWeb
         /// </remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
-            // NOTE: To load from web.config uncomment the line below.
-            // Make sure to add a Unity.Configuration to the using statements.
-            // container.LoadConfiguration();
+            // ログインサービス
+            container.RegisterType<ILoginService, LoginService>(new PerRequestLifetimeManager());
 
-            // TODO: Register your type's mappings here.
-            // container.RegisterType<IProductRepository, ProductRepository>();
+            // ユーザー情報リポジトリ
+            container.RegisterType<IUserInfoRepository, UserInfoRepository>(new PerRequestLifetimeManager());
+
+            // DbContext
+            // 下記は現時点では、コメントアウトしたRegisterTypeでも問題ないが、
+            // 最終的にはSQLの実行結果をログに出力する設定を入れ込みたいので
+            // RegisterFactoryで登録しておく
+            // container.RegisterType<AttendanceDbEntities>(new PerRequestLifetimeManager());
+            container.RegisterFactory<AttendanceDbEntities>(c => new AttendanceDbEntities(), new PerRequestLifetimeManager());
+
         }
     }
 }
