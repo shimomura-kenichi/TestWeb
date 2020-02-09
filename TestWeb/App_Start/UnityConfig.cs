@@ -1,5 +1,7 @@
 using System;
+using System.Data.Entity;
 using TestWeb.Models;
+using TestWeb.Models.Common;
 using TestWeb.Models.Login;
 using TestWeb.Models.Repository;
 using Unity;
@@ -42,7 +44,11 @@ namespace TestWeb
             // ログインサービス
             container.RegisterType<ILoginService, LoginService>(new PerRequestLifetimeManager());
 
+            // ログインサービス(プロキシ)
+            container.RegisterType<IServiceProxy<ILoginService>, ServiceProxy<ILoginService>>(new PerRequestLifetimeManager());
+
             // ユーザー情報リポジトリ
+
             container.RegisterType<IUserInfoRepository, UserInfoRepository>(new PerRequestLifetimeManager());
 
             // DbContext
@@ -51,6 +57,8 @@ namespace TestWeb
             // RegisterFactoryで登録しておく
             // container.RegisterType<AttendanceDbEntities>(new PerRequestLifetimeManager());
             container.RegisterFactory<AttendanceDbEntities>(c => new AttendanceDbEntities(), new PerRequestLifetimeManager());
+
+            container.RegisterFactory<DbContext>(c => c.Resolve<AttendanceDbEntities>());
 
         }
     }

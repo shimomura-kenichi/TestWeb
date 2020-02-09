@@ -1,8 +1,10 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TestWeb.Models.Attributes;
 using TestWeb.Models.Common;
 using TestWeb.Models.Login;
 using TestWeb.Models.Login.InputModel;
@@ -18,28 +20,33 @@ namespace TestWeb.Controllers
         /// <summary>
         /// ログインサービス
         /// </summary>
-        private ILoginService _LoginService;
+        private IServiceProxy<ILoginService> _LoginService;
 
         /// <summary>
-        /// コンストラクター
+        /// コントローラーのヘルパークラス
         /// </summary>
-        public LoginController(ILoginService loginService)
+        private ControllerSupport _ControllerSupport;
+
+        /// <summary>
+        /// コンストラクター(UnityMVC)
+        /// </summary>
+        public LoginController(IServiceProxy<ILoginService> loginService)
         {
             _LoginService = loginService;
+
+            this._ControllerSupport = new ControllerSupport(this);
         }
 
         /// <summary>
         /// 画面初期表示
         /// </summary>
         /// <returns>View</returns>
+        [AllowAnonymous]
+        [HttpGet]
         public ActionResult Index()
         {
             // リダイレクトされた場合でModelStateが引き渡された場合はModelStateをマージする。
-            ModelStateDictionary modelState = (ModelStateDictionary)this.TempData["ModelState"];
-            if (modelState != null)
-            {
-                this.ModelState.Merge(modelState);
-            }
+            this._ControllerSupport.LoadMessageForRedirect();
 
             LoginInitInputModel inputModel = new LoginInitInputModel();
 
@@ -48,7 +55,8 @@ namespace TestWeb.Controllers
             if (userIdCookie != null)
             {
                 inputModel.UserId = userIdCookie.Value;
-            } else
+            }
+            else
             {
                 inputModel.UserId = null;
             }
@@ -57,7 +65,8 @@ namespace TestWeb.Controllers
 
             // ViewModelを生成する
 
-            LoginViewModel viewModel = _LoginService.Init(inputModel);
+            LoginViewModel viewModel = this._ControllerSupport.InvokeServiceAndSetMessage(
+                _LoginService, m => m.Init(inputModel), null, string.Empty);
 
             // ViewModelを使ってLoginビューを表示する
             return View("Login", viewModel);
@@ -68,6 +77,8 @@ namespace TestWeb.Controllers
         /// </summary>
         /// <param name="inputModel">入力モデル</param>
         /// <returns>リダイレクト</returns>
+        [AllowAnonymous]
+        [HttpPost]
         public ActionResult Login(LoginInputModel inputModel)
         {
             // 入力エラーがあった場合
@@ -75,40 +86,35 @@ namespace TestWeb.Controllers
             {
                 // 初期表示にリダイレクト
                 // リダイレクトするとModelStateが失われ、入力内容がViewに反映されなくなるのでModelStateを退避する。
-                this.TempData.Add("ModelState", this.ModelState);
+                this._ControllerSupport.SaveMessageForRedirect();
                 return RedirectToAction("Index");
             }
 
-            // ログイン
-            UserInfoModel userInfoModel = _LoginService.Login(inputModel);
-            if (!_LoginService.ServiceMessage.IsValid)
+            if (this.ModelState.IsValid)
             {
-                // エラー時
+                // ログイン
+                UserInfoModel userInfoModel = this._ControllerSupport.InvokeServiceAndSetMessage(
+                _LoginService, m => m.Login(inputModel), null, string.Empty);
 
-                // サービスのエラーメッセージをModelStateにコピーする
-                foreach (KeyValuePair<string, List<string>> data in _LoginService.ServiceMessage.ErrorMessage)
+                if (_LoginService.ServiceMessage.IsValid)
                 {
-                    foreach (string msg in data.Value)
-                    {
-                        this.ModelState.AddModelError(data.Key, msg);
-                    }
+                    // ログイン成功時の処理
+
+                    // UserIdをCookieに保存する
+                    this.Response.AppendCookie(new HttpCookie("UserId", inputModel.UserId));
+
+                    // ユーザー情報をセッションに格納する
+                    SessionUtil.SetUserInfoModel(userInfoModel);
+
+                    // Top画面にリダイレクトする
+                    return RedirectToAction("Index", "Top", null);
                 }
-                // モデルステートを引き継ぎ、初期表示にリダイレクトする
-                this.TempData.Add("ModelState", this.ModelState);
-                return RedirectToAction("Index");
             }
 
-            // ログイン成功時の処理
-
-            // UserIdをCookieに保存する
-            this.Response.AppendCookie(new HttpCookie("UserId", inputModel.UserId));
-
-            // ユーザー情報をセッションに格納する
-            this.Session.Add("UserInfoModel", userInfoModel);
-
-            // Top画面にリダイレクトする
-            return RedirectToAction("Index", "Top", null);
-
+            // エラー時
+            // モデルステートを引き継ぎ、初期表示にリダイレクトする
+            this._ControllerSupport.SaveMessageForRedirect();
+            return RedirectToAction("Index");
         }
     }
 }

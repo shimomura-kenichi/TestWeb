@@ -20,5 +20,10 @@ namespace TestWeb.Models.Common
         /// ユーザー情報
         /// </summary>
         UserInfoModel UserInfoModel { set; }
+
+        /// <summary>
+        /// DB保存用メソッド
+        /// </summary>
+        Func<bool> SaveChangeFunc { set; }
     }
 }

@@ -95,5 +95,32 @@ namespace TestWeb.Properties {
                 return ResourceManager.GetString("MEP0004", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   不正なアクセスです。ログイン画面から再度アクセスしてください。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string MEP0005 {
+            get {
+                return ResourceManager.GetString("MEP0005", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   予期しないエラーが発生しました。最初からやり直してください。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string MEP0006 {
+            get {
+                return ResourceManager.GetString("MEP0006", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   画面を表示する権限がありません。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string MEP0007 {
+            get {
+                return ResourceManager.GetString("MEP0007", resourceCulture);
+            }
+        }
     }
 }

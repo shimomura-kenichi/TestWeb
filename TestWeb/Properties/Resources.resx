@@ -129,4 +129,13 @@
   <data name="MEP0004" xml:space="preserve">
     <value>{0}のデータは他のユーザーにより更新されています。再度ログインを行ってください。</value>
   </data>
+  <data name="MEP0005" xml:space="preserve">
+    <value>不正なアクセスです。ログイン画面から再度アクセスしてください。</value>
+  </data>
+  <data name="MEP0006" xml:space="preserve">
+    <value>予期しないエラーが発生しました。最初からやり直してください。</value>
+  </data>
+  <data name="MEP0007" xml:space="preserve">
+    <value>画面を表示する権限がありません。</value>
+  </data>
 </root>

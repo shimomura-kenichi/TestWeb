@@ -1,17 +1,12 @@
 ﻿@model TestWeb.Models.Login.ViewModel.LoginViewModel
 
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "ログイン画面";
 }
 
-<h2>Login</h2>
-
-@using (Html.BeginForm("Login", "Login")) 
-{
-    @Html.AntiForgeryToken()
-    
     <div class="form-horizontal">
-        <h4>ログイン画面</h4>
+        <h2>ログイン画面</h2>
+        <h4>ログイン情報入力</h4>
         <hr />
 
         <div class="form-group">
@@ -21,31 +16,44 @@
             </div>
         </div>
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @using (Html.BeginForm("Login", "Login"))
+        {
+            @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="ログイン" class="btn btn-default" />
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
             </div>
-        </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-8">
+                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-8">
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-7">
+                    <input type="submit" value="ログイン" class="btn btn-default" />
+                </div>
+            </div>
+
+        }
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+

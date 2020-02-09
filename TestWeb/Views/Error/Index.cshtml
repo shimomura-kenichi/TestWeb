@@ -1,0 +1,26 @@
+﻿@model TestWeb.Models.Error.ViewModel.ErrorViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    <h4>エラー画面</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ErrorMessage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ErrorMessage)
+        </dd>
+
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("ログイン", "Index","Login")
+</p>

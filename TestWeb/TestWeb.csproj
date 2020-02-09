@@ -151,6 +151,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\TopController.cs" />
     <Compile Include="Global.asax.cs">
@@ -171,9 +172,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AttendanceDb.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Attributes\PositionAuthorizeAttribute.cs" />
+    <Compile Include="Models\Attributes\PositionRoleProvider.cs" />
+    <Compile Include="Models\Attributes\TransactionStart.cs" />
+    <Compile Include="Models\Attributes\UpdateDateBundleTransform.cs" />
+    <Compile Include="Models\Common\ControllerSupport.cs" />
     <Compile Include="Models\Common\IService.cs" />
+    <Compile Include="Models\Common\IServiceProxy.cs" />
     <Compile Include="Models\Common\ServiceMessage.cs" />
+    <Compile Include="Models\Common\ServiceProxy.cs" />
+    <Compile Include="Models\Common\SessionUtil.cs" />
+    <Compile Include="Models\Common\UserDepartmentModel.cs" />
     <Compile Include="Models\Common\UserInfoModel.cs" />
+    <Compile Include="Models\Error\ViewModel\ErrorViewModel.cs" />
     <Compile Include="Models\Login\ILoginService.cs" />
     <Compile Include="Models\Login\InputModel\LoginInitInputModel.cs" />
     <Compile Include="Models\Login\InputModel\LoginInputModel.cs" />
@@ -183,6 +194,9 @@
       <DependentUpon>AttendanceDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\M102UserAuth.cs">
+      <DependentUpon>AttendanceDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\M103UserDepartment.cs">
       <DependentUpon>AttendanceDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Repository\IUserInfoRepository.cs" />
@@ -254,6 +268,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Top\Top.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -277,6 +292,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -13,17 +13,14 @@ namespace TestWeb.Models
     using System.Collections.Generic;
     using System.ComponentModel;
     
-    public partial class M101User
+    public partial class M103UserDepartment
     {
-        ///<summary>ユーザーID</summary>
-        [DisplayName("ユーザーID")]
         public string UserId { get; set; }
-        ///<summary>ユーザー名</summary>
-        [DisplayName("ユーザー名")]
-        public string UserName { get; set; }
+        public string DepartmentCd { get; set; }
+        public string PositionCd { get; set; }
         public string DeleteFlg { get; set; }
-        public string UpdateUserId { get; set; }
         public System.DateTime CreateDttm { get; set; }
         public System.DateTime UpdateDttm { get; set; }
+        public string UpdateUserId { get; set; }
     }
 }

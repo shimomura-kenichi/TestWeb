@@ -14,7 +14,7 @@
           <Property Name="DELETE_FLG" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="CREATE_DTTM" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UPDATE_DTTM" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="UPDATE_USER_ID" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="UPDATE_USER_ID" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="M102_USER_AUTH">
           <Key>
@@ -23,6 +23,19 @@
           <Property Name="USER_ID" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="PASSWORD" Type="nvarchar" MaxLength="20" />
           <Property Name="LAST_LOGIN_DTTM" Type="datetime2" Precision="7" />
+          <Property Name="DELETE_FLG" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="CREATE_DTTM" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UPDATE_DTTM" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UPDATE_USER_ID" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="M103_USER_DEPARTMENT">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+            <PropertyRef Name="DEPARTMENT_CD" />
+          </Key>
+          <Property Name="USER_ID" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="DEPARTMENT_CD" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="POSITION_CD" Type="nvarchar" MaxLength="4" Nullable="false" />
           <Property Name="DELETE_FLG" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="CREATE_DTTM" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UPDATE_DTTM" Type="datetime2" Precision="7" Nullable="false" />
@@ -45,6 +58,7 @@
         <EntityContainer Name="AttendanceDbModelStoreContainer">
           <EntitySet Name="M101_USER" EntityType="Self.M101_USER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="M102_USER_AUTH" EntityType="Self.M102_USER_AUTH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="M103_USER_DEPARTMENT" EntityType="Self.M103_USER_DEPARTMENT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T20_ATTENDANCE_TIME" EntityType="Self.T20_ATTENDANCE_TIME" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -73,17 +87,28 @@
           <EntitySet Name="T20_ATTENDANCE_TIME" EntityType="AttendanceDbModel.T20AttendanceTime" />
           <EntitySet Name="M101_USER" EntityType="AttendanceDbModel.M101User" />
           <EntitySet Name="M102_USER_AUTH" EntityType="AttendanceDbModel.M102UserAuth" />
+          <EntitySet Name="M103_USER_DEPARTMENT" EntityType="AttendanceDbModel.M103UserDepartment" />
         </EntityContainer>
         <EntityType Name="M101User">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" >
+            <Documentation>
+              <Summary>ユーザーID</Summary>
+              <LongDescription>ユーザーID</LongDescription>
+            </Documentation>
+          </Property>
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" >
+            <Documentation>
+              <Summary>ユーザー名</Summary>
+              <LongDescription>ユーザー名</LongDescription>
+            </Documentation>
+          </Property>
           <Property Name="DeleteFlg" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="UpdateUserId" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="UpdateUserId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" ConcurrencyMode="Fixed" />
           <Property Name="CreateDttm" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="UpdateDttm" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdateDttm" Type="DateTime" Nullable="false" Precision="7" ConcurrencyMode="Fixed" />
         </EntityType>
         <EntityType Name="M102UserAuth">
           <Key>
@@ -92,10 +117,23 @@
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="DeleteFlg" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="UpdateUserId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateUserId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" ConcurrencyMode="Fixed" />
           <Property Name="LastLoginDttm" Type="DateTime" Precision="7" />
           <Property Name="CreateDttm" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="UpdateDttm" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdateDttm" Type="DateTime" Nullable="false" Precision="7" ConcurrencyMode="Fixed" />
+        </EntityType>
+        <EntityType Name="M103UserDepartment">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="DepartmentCd" />
+          </Key>
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentCd" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="PositionCd" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="DeleteFlg" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDttm" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="UpdateDttm" Type="DateTime" Nullable="false" Precision="7" ConcurrencyMode="Fixed" />
+          <Property Name="UpdateUserId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" ConcurrencyMode="Fixed" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -138,6 +176,19 @@
                 <ScalarProperty Name="UpdateUserId" ColumnName="UPDATE_USER_ID" />
                 <ScalarProperty Name="DeleteFlg" ColumnName="DELETE_FLG" />
                 <ScalarProperty Name="Password" ColumnName="PASSWORD" />
+                <ScalarProperty Name="UserId" ColumnName="USER_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="M103_USER_DEPARTMENT">
+            <EntityTypeMapping TypeName="AttendanceDbModel.M103UserDepartment">
+              <MappingFragment StoreEntitySet="M103_USER_DEPARTMENT">
+                <ScalarProperty Name="UpdateUserId" ColumnName="UPDATE_USER_ID" />
+                <ScalarProperty Name="UpdateDttm" ColumnName="UPDATE_DTTM" />
+                <ScalarProperty Name="CreateDttm" ColumnName="CREATE_DTTM" />
+                <ScalarProperty Name="DeleteFlg" ColumnName="DELETE_FLG" />
+                <ScalarProperty Name="PositionCd" ColumnName="POSITION_CD" />
+                <ScalarProperty Name="DepartmentCd" ColumnName="DEPARTMENT_CD" />
                 <ScalarProperty Name="UserId" ColumnName="USER_ID" />
               </MappingFragment>
             </EntityTypeMapping>

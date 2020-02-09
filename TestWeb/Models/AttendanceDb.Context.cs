@@ -28,5 +28,6 @@ namespace TestWeb.Models
         public virtual DbSet<T20AttendanceTime> T20_ATTENDANCE_TIME { get; set; }
         public virtual DbSet<M101User> M101_USER { get; set; }
         public virtual DbSet<M102UserAuth> M102_USER_AUTH { get; set; }
+        public virtual DbSet<M103UserDepartment> M103_USER_DEPARTMENT { get; set; }
     }
 }

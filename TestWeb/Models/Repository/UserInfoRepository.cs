@@ -43,9 +43,9 @@ namespace TestWeb.Models.Repository
         {
             // M101とM102をUserIdで内部結合してUserInfoModel型に変換して返却する
             // FirstOrDefaultは該当データの先頭を返す。該当データがない場合はnullを返す。
-            UserInfoModel userInfoModel = _DbContext.M101_USER.Join(_DbContext.M102_USER_AUTH
-                , m101 => m101.UserId, m102 => m102.UserId, (m101, m102) => new { m101, m102 })
-                .Where(m => m.m101.UserId == userId).Select(m => new UserInfoModel()
+            UserInfoModel userInfoModel = _DbContext.M101_USER
+                .Join(_DbContext.M102_USER_AUTH, m101 => m101.UserId, m102 => m102.UserId, (m101, m102) => new { m101, m102 })
+                .Where(m => m.m101.UserId == userId && m.m101.DeleteFlg == "0").Select(m => new UserInfoModel()
                 {
                     UserId = m.m101.UserId,
                     Password = m.m102.Password,
@@ -62,6 +62,19 @@ namespace TestWeb.Models.Repository
             //        UserName = m.m101.UserName,
             //        LastLoginDttm = m102.LastLoginDttm
             //    }).FirstOrDefault();
+
+            if (userInfoModel != null)
+            {
+                // 所属情報を取得する
+                List<UserDepartmentModel> userDepartmentList = _DbContext.M103_USER_DEPARTMENT
+                    .Where(m => m.UserId == userId && m.DeleteFlg == "0").Select(m => new UserDepartmentModel()
+                    {
+                        DepartmentCd = m.DepartmentCd,
+                        PositionCd = m.PositionCd
+                    }).ToList();
+                userInfoModel.UserDepartmentList = userDepartmentList;
+
+            }
 
             return userInfoModel;
         }

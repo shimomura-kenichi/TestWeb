@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
+using TestWeb.Models.Attributes;
 using TestWeb.Models.Common;
 using TestWeb.Models.Login.InputModel;
 using TestWeb.Models.Login.ViewModel;
@@ -38,13 +39,18 @@ namespace TestWeb.Models.Login
         public UserInfoModel UserInfoModel { get; set; }
 
         /// <summary>
-        /// コンストラクター
+        /// DB保存用ファンクション
+        /// </summary>
+        public Func<bool> SaveChangeFunc { get;  set; }
+
+        /// <summary>
+        /// コンストラクター(UnityMvc)
         /// </summary>
         /// <param name="userInfoRepository">ユーザー情報リポジトリ</param>
         public LoginService(AttendanceDbEntities dbContext, IUserInfoRepository userInfoRepository)
         {
-            _DbContext = dbContext;
-            _UserInfoRepository = userInfoRepository;
+            this._DbContext = dbContext;
+            this._UserInfoRepository = userInfoRepository;
             this.ServiceMessage = new ServiceMessage();
         }
 
@@ -70,6 +76,7 @@ namespace TestWeb.Models.Login
         /// </summary>
         /// <param name="inputModel">入力モデル</param>
         /// <returns>ユーザー情報</returns>
+        [TransactionStart()]
         public UserInfoModel Login(LoginInputModel inputModel)
         {
             // ユーザー情報を取得する
@@ -99,34 +106,25 @@ namespace TestWeb.Models.Login
             }
 
             // Db更新確定
-            try
+            if (this.SaveChangeFunc())
             {
-                _DbContext.SaveChanges();
+                // 成功時
                 userInfoModel.LastLoginDttm = lastLoginDttm;
             }
-            catch (DbUpdateConcurrencyException ex)
+            else
             {
-                // 整合性例外が発生した場合は排他エラー発生
-                foreach (var entry in ex.Entries)
-                {
-                    // DbContextに加えた変更をすべて元に戻す
-                    switch (entry.State)
-                    {
-                        case EntityState.Added:
-                            entry.State = EntityState.Detached;
-                            break;
-                        case EntityState.Modified:
-                            entry.State = EntityState.Unchanged;
-                            break;
-                        case EntityState.Deleted:
-                            entry.State = EntityState.Unchanged;
-                            break;
-                    }
-                }
+                // エラー時
                 // エラーメッセージセット
                 this.ServiceMessage.AddErrorMessage(null, string.Format(Resources.MEP0004, inputModel.UserId));
-                return null;
             }
+
+            // 部署が1つしかない場合は選択部署としてuserInfoModelにセットする
+            if (userInfoModel.UserDepartmentList.Count == 1)
+            {
+                userInfoModel.CurrentDepartmentCd = userInfoModel.UserDepartmentList[0].DepartmentCd;
+                userInfoModel.CurrentPositionCd = userInfoModel.UserDepartmentList[0].PositionCd;
+            }
+
 
             return userInfoModel;
 
