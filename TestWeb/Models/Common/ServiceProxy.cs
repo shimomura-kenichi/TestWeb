@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
@@ -83,6 +84,8 @@ namespace TestWeb.Models.Common
             this._Service.UserInfoModel = userInfoModel;
             // SaveChangesファンクションをセットする
             this._Service.SaveChangeFunc = () => this.SaveChangeFunc();
+            // メッセージを設定する
+            this._Service.ServiceMessage = new ServiceMessage();
 
             // 開始ログを出力する
             this._Log.Debug(string.Format("method={0} Start. Transaction={1}.", name, this._IsTransaction.ToString()));
@@ -156,30 +159,59 @@ namespace TestWeb.Models.Common
                 result = false;
 
                 // DbContextにトラッキングされている変更を取り消す
-                foreach (DbEntityEntry entry in ucx.Entries)
-                {
-                    switch(entry.State)
-                    {
-                        case EntityState.Added:
-                            entry.State = EntityState.Detached;
-                            break;
-                        case EntityState.Modified:
-                            entry.State = EntityState.Unchanged;
-                            break;
-                        case EntityState.Deleted:
-                            entry.State = EntityState.Unchanged;
-                            break;
-                        default:
-                            break;
-                    }
-                }
+                CancelTracking(ucx.Entries);
+
                 // ロールバックする
                 if (this._IsTransaction)
                 {
                     this._Tran.Rollback();
                 }
+            } catch(DbEntityValidationException vex)
+            {
+                result = false;
+
+                // DbContextにトラッキングされている変更を取り消す
+                CancelTracking(this._DbContext.ChangeTracker.Entries());
+
+                // ロールバックする
+                if (this._IsTransaction)
+                {
+                    this._Tran.Rollback();
+                }
+                foreach (var entityError in vex.EntityValidationErrors)
+                {
+                    foreach (var validError in entityError.ValidationErrors)
+                    {
+                        this._Log.Error(string.Format("Db Validation Error property={0} message={1}.", validError.PropertyName, validError.ErrorMessage));
+                    }
+                }
             }
             return result;
+        }
+
+        /// <summary>
+        /// トラッキング取り消し
+        /// </summary>
+        /// <param name="entries">エントリー</param>
+        private void CancelTracking(IEnumerable<DbEntityEntry> entries)
+        {
+            foreach (DbEntityEntry entry in entries)
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.State = EntityState.Detached;
+                        break;
+                    case EntityState.Modified:
+                        entry.State = EntityState.Unchanged;
+                        break;
+                    case EntityState.Deleted:
+                        entry.State = EntityState.Unchanged;
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }

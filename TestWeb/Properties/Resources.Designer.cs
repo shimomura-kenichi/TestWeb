@@ -79,6 +79,33 @@ namespace TestWeb.Properties {
         }
         
         /// <summary>
+        ///   {0}を選択してください。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string MEI0009 {
+            get {
+                return ResourceManager.GetString("MEI0009", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   {0]は数字で入力してください。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string MEI0010 {
+            get {
+                return ResourceManager.GetString("MEI0010", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   {0}は時間の形式(09:00 or 0900 or 9:00 or 900)で入力してください。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string MEI0011 {
+            get {
+                return ResourceManager.GetString("MEI0011", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   ユーザーIDまたはパスワードが正しくありません。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string MEP0003 {
@@ -120,6 +147,15 @@ namespace TestWeb.Properties {
         internal static string MEP0007 {
             get {
                 return ResourceManager.GetString("MEP0007", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   該当するデータは存在しません。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string MEP0008 {
+            get {
+                return ResourceManager.GetString("MEP0008", resourceCulture);
             }
         }
     }

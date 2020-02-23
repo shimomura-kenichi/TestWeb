@@ -1,0 +1,58 @@
+﻿@model TestWeb.Models.AttendanceTime.ViewModel.AttendanceTimeViewModel
+
+@{
+    ViewBag.Title = "出退勤時間入力画面";
+}
+@Styles.Render("~/Content/Site-AttendanceTime")
+
+@section scripts {
+    @Scripts.Render("~/bundles/app-AttendanceTime")
+}
+
+
+<table id="AttendanceTimeList" class="table select-row">
+    @{
+        var headItem = Model.AttendanceTimeList.First();
+    }
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => headItem.WorkDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => headItem.WeekDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => headItem.WorkKind)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => headItem.HolidayKind)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => headItem.StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => headItem.EndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => headItem.RestTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => headItem.Remarks)
+        </th>
+        <th hidden>
+            @Html.DisplayNameFor(model => headItem.KeyValueJSon)
+        </th>
+    </tr>
+
+    @foreach (var item in Model.AttendanceTimeList)
+    {
+        @Html.Partial("ListRow", item)
+    }
+
+</table>
+
+<div id="DetailInput" style="display:none"></div>
+
+
+

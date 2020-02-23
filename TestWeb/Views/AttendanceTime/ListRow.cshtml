@@ -1,0 +1,38 @@
+﻿@model TestWeb.Models.AttendanceTime.ViewModel.AttendanceTimeModel
+
+<tr>
+    <td>
+        <button name="AddBtn">追加</button>
+        <button name="DelBtn">削除</button>
+    </td>
+    <td>
+        @Html.DisplayFor(m => m.WorkDay)
+    </td>
+    <td>
+        @Html.DisplayFor(m => m.WeekDay)
+    </td>
+    <td>
+        @Html.DisplayFor(m => m.WorkKindName)
+    </td>
+    <td>
+        @Html.DisplayFor(m => m.HolidayKindName)
+    </td>
+    <td>
+        @Html.DisplayFor(m => m.StartTime)
+    </td>
+    <td>
+        @Html.DisplayFor(m => m.EndTime)
+    </td>
+    <td>
+        @Html.DisplayFor(m => m.RestTime)
+    </td>
+    <td>
+        @Html.DisplayFor(m => m.Remarks)
+    </td>
+    <td hidden>
+        <span name="KeyValueJson">
+            @Html.DisplayFor(m => m.KeyValueJSon)
+        </span>
+    </td>
+</tr>
+

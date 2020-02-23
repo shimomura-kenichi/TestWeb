@@ -34,60 +34,147 @@
             <PropertyRef Name="DEPARTMENT_CD" />
           </Key>
           <Property Name="USER_ID" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="DEPARTMENT_CD" Type="nvarchar" MaxLength="4" Nullable="false" />
-          <Property Name="POSITION_CD" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="DEPARTMENT_CD" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="POSITION_CD" Type="varchar" MaxLength="4" Nullable="false" />
           <Property Name="DELETE_FLG" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="CREATE_DTTM" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UPDATE_DTTM" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="UPDATE_USER_ID" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
-        <EntityType Name="T20_ATTENDANCE_TIME">
+        <EntityType Name="M201_CODE_MST">
+          <Key>
+            <PropertyRef Name="CD_KIND" />
+            <PropertyRef Name="CD" />
+          </Key>
+          <Property Name="CD_KIND" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="CD" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="REMARKS" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="T200_ATTENDANCE_TIME">
           <Key>
             <PropertyRef Name="USER_ID" />
             <PropertyRef Name="WORK_YEAR" />
+            <PropertyRef Name="WORK_MONTH" />
+            <PropertyRef Name="WORK_DAY" />
+            <PropertyRef Name="WORK_NO" />
           </Key>
-          <Property Name="USER_ID" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="USER_ID" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="WORK_YEAR" Type="int" Nullable="false" />
           <Property Name="WORK_MONTH" Type="int" Nullable="false" />
           <Property Name="WORK_DAY" Type="int" Nullable="false" />
+          <Property Name="WORK_NO" Type="int" Nullable="false" />
+          <Property Name="WORK_KIND" Type="varchar" MaxLength="2" />
+          <Property Name="DEPARTMENT_CD" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="WEEK_START_DATE" Type="datetime" Nullable="false" />
+          <Property Name="HOLIDAY_KIND" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="START_TIME" Type="time" Precision="7" />
           <Property Name="END_TIME" Type="time" Precision="7" />
           <Property Name="REST_TIME" Type="time" Precision="7" />
-          <Property Name="REMARKS" Type="nvarchar" MaxLength="100" />
+          <Property Name="REMARKS" Type="nvarchar" MaxLength="200" />
+          <Property Name="DELETE_FLG" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="CREATE_DTTM" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UPDATE_DTTM" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UPDATE_USER_ID" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <!--生成中に見つかったエラー:
+警告 6002: テーブル/ビュー 'E:\WORKSPACE\TESTWEB\TESTWEB\APP_DATA\ATTENDANCEDB.MDF.dbo.V103_USER_DEPARTMENT' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。-->
+        <EntityType Name="V103_USER_DEPARTMENT">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+            <PropertyRef Name="DELETE_FLG" />
+            <PropertyRef Name="DEPARTMENT_CD" />
+            <PropertyRef Name="POSITION_CD" />
+          </Key>
+          <Property Name="USER_ID" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="DELETE_FLG" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="DEPARTMENT_CD" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="DEPARTMENT_NAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="POSITION_CD" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="POSITION_NAME" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <!--生成中に見つかったエラー:
+警告 6002: テーブル/ビュー 'E:\WORKSPACE\TESTWEB\TESTWEB\APP_DATA\ATTENDANCEDB.MDF.dbo.V200_ATTENDANCE_TIME' には主キーが定義されていません。主キーは推論され、定義は読み取り専用のテーブル/ビューとして作成されました。-->
+        <EntityType Name="V200_ATTENDANCE_TIME">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+            <PropertyRef Name="WORK_YEAR" />
+            <PropertyRef Name="WORK_MONTH" />
+            <PropertyRef Name="WORK_DAY" />
+            <PropertyRef Name="WORK_NO" />
+          </Key>
+          <Property Name="USER_ID" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="WORK_YEAR" Type="int" Nullable="false" />
+          <Property Name="WORK_MONTH" Type="int" Nullable="false" />
+          <Property Name="WORK_DAY" Type="int" Nullable="false" />
+          <Property Name="WORK_NO" Type="int" Nullable="false" />
+          <Property Name="WORK_KIND" Type="varchar" MaxLength="2" />
+          <Property Name="DEPARTMENT_CD" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="WEEK_START_DATE" Type="datetime" Nullable="false" />
+          <Property Name="HOLIDAY_KIND" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="START_TIME" Type="time" Precision="7" />
+          <Property Name="END_TIME" Type="time" Precision="7" />
+          <Property Name="REST_TIME" Type="time" Precision="7" />
+          <Property Name="REMARKS" Type="nvarchar" MaxLength="200" />
+          <Property Name="DELETE_FLG" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="CREATE_DTTM" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UPDATE_DTTM" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="UPDATE_USER_ID" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="WORK_KIND_NAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="HOLIDAY_KIND_NAME" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityContainer Name="AttendanceDbModelStoreContainer">
           <EntitySet Name="M101_USER" EntityType="Self.M101_USER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="M102_USER_AUTH" EntityType="Self.M102_USER_AUTH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="M103_USER_DEPARTMENT" EntityType="Self.M103_USER_DEPARTMENT" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="T20_ATTENDANCE_TIME" EntityType="Self.T20_ATTENDANCE_TIME" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="M201_CODE_MST" EntityType="Self.M201_CODE_MST" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T200_ATTENDANCE_TIME" EntityType="Self.T200_ATTENDANCE_TIME" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="V103_USER_DEPARTMENT" EntityType="Self.V103_USER_DEPARTMENT" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V103_USER_DEPARTMENT].[USER_ID] AS [USER_ID], 
+    [V103_USER_DEPARTMENT].[DELETE_FLG] AS [DELETE_FLG], 
+    [V103_USER_DEPARTMENT].[DEPARTMENT_CD] AS [DEPARTMENT_CD], 
+    [V103_USER_DEPARTMENT].[DEPARTMENT_NAME] AS [DEPARTMENT_NAME], 
+    [V103_USER_DEPARTMENT].[POSITION_CD] AS [POSITION_CD], 
+    [V103_USER_DEPARTMENT].[POSITION_NAME] AS [POSITION_NAME]
+    FROM [dbo].[V103_USER_DEPARTMENT] AS [V103_USER_DEPARTMENT]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V200_ATTENDANCE_TIME" EntityType="Self.V200_ATTENDANCE_TIME" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V200_ATTENDANCE_TIME].[USER_ID] AS [USER_ID], 
+    [V200_ATTENDANCE_TIME].[WORK_YEAR] AS [WORK_YEAR], 
+    [V200_ATTENDANCE_TIME].[WORK_MONTH] AS [WORK_MONTH], 
+    [V200_ATTENDANCE_TIME].[WORK_DAY] AS [WORK_DAY], 
+    [V200_ATTENDANCE_TIME].[WORK_NO] AS [WORK_NO], 
+    [V200_ATTENDANCE_TIME].[WORK_KIND] AS [WORK_KIND], 
+    [V200_ATTENDANCE_TIME].[DEPARTMENT_CD] AS [DEPARTMENT_CD], 
+    [V200_ATTENDANCE_TIME].[WEEK_START_DATE] AS [WEEK_START_DATE], 
+    [V200_ATTENDANCE_TIME].[HOLIDAY_KIND] AS [HOLIDAY_KIND], 
+    [V200_ATTENDANCE_TIME].[START_TIME] AS [START_TIME], 
+    [V200_ATTENDANCE_TIME].[END_TIME] AS [END_TIME], 
+    [V200_ATTENDANCE_TIME].[REST_TIME] AS [REST_TIME], 
+    [V200_ATTENDANCE_TIME].[REMARKS] AS [REMARKS], 
+    [V200_ATTENDANCE_TIME].[DELETE_FLG] AS [DELETE_FLG], 
+    [V200_ATTENDANCE_TIME].[CREATE_DTTM] AS [CREATE_DTTM], 
+    [V200_ATTENDANCE_TIME].[UPDATE_DTTM] AS [UPDATE_DTTM], 
+    [V200_ATTENDANCE_TIME].[UPDATE_USER_ID] AS [UPDATE_USER_ID], 
+    [V200_ATTENDANCE_TIME].[WORK_KIND_NAME] AS [WORK_KIND_NAME], 
+    [V200_ATTENDANCE_TIME].[HOLIDAY_KIND_NAME] AS [HOLIDAY_KIND_NAME]
+    FROM [dbo].[V200_ATTENDANCE_TIME] AS [V200_ATTENDANCE_TIME]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AttendanceDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="T20AttendanceTime">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="WorkYear" />
-          </Key>
-          <Property Name="UserId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" >
-            <Documentation>
-              <Summary>ユーザーID</Summary>
-            </Documentation>
-          </Property>
-          <Property Name="WorkYear" Type="Int32" Nullable="false" />
-          <Property Name="WorkMonth" Type="Int32" Nullable="false" />
-          <Property Name="WorkDay" Type="Int32" Nullable="false" />
-          <Property Name="StartTime" Type="Time" Precision="7" />
-          <Property Name="EndTime" Type="Time" Precision="7" />
-          <Property Name="RestTime" Type="Time" Precision="7" />
-          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityContainer Name="AttendanceDbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="T20_ATTENDANCE_TIME" EntityType="AttendanceDbModel.T20AttendanceTime" />
           <EntitySet Name="M101_USER" EntityType="AttendanceDbModel.M101User" />
           <EntitySet Name="M102_USER_AUTH" EntityType="AttendanceDbModel.M102UserAuth" />
           <EntitySet Name="M103_USER_DEPARTMENT" EntityType="AttendanceDbModel.M103UserDepartment" />
+          <EntitySet Name="M201_CODE_MST" EntityType="AttendanceDbModel.M201CodeMst" />
+          <EntitySet Name="V103_USER_DEPARTMENT" EntityType="AttendanceDbModel.V103UserDepartment" />
+          <EntitySet Name="T200_ATTENDANCE_TIME" EntityType="AttendanceDbModel.T200AttendanceTime" />
+          <EntitySet Name="V200_ATTENDANCE_TIME" EntityType="AttendanceDbModel.V200AttendanceTime" />
         </EntityContainer>
         <EntityType Name="M101User">
           <Key>
@@ -128,12 +215,234 @@
             <PropertyRef Name="DepartmentCd" />
           </Key>
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="DepartmentCd" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
-          <Property Name="PositionCd" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentCd" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="PositionCd" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="DeleteFlg" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="CreateDttm" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="UpdateDttm" Type="DateTime" Nullable="false" Precision="7" ConcurrencyMode="Fixed" />
           <Property Name="UpdateUserId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" ConcurrencyMode="Fixed" />
+        </EntityType>
+        <EntityType Name="M201CodeMst">
+          <Key>
+            <PropertyRef Name="CdKind" />
+            <PropertyRef Name="Cd" />
+          </Key>
+          <Property Name="CdKind" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="Cd" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="V103UserDepartment">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="DeleteFlg" />
+            <PropertyRef Name="DepartmentCd" />
+            <PropertyRef Name="PositionCd" />
+          </Key>
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DeleteFlg" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentCd" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PositionCd" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="PositionName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="T200AttendanceTime">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="WorkYear" />
+            <PropertyRef Name="WorkMonth" />
+            <PropertyRef Name="WorkDay" />
+            <PropertyRef Name="WorkNo" />
+          </Key>
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" >
+            <Documentation>
+              <Summary>ユーザーID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="WorkYear" Type="Int32" Nullable="false" >
+            <Documentation>
+              <Summary>年</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="WorkMonth" Type="Int32" Nullable="false" >
+            <Documentation>
+              <Summary>月</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="WorkDay" Type="Int32" Nullable="false" >
+            <Documentation>
+              <Summary>日</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="WorkKind" Type="String" Nullable="true" MaxLength="2" FixedLength="false" Unicode="false" >
+            <Documentation>
+              <Summary>勤務区分</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="StartTime" Type="Time" Precision="7" >
+            <Documentation>
+              <Summary>開始</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="EndTime" Type="Time" Precision="7" >
+            <Documentation>
+              <Summary>終了</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="RestTime" Type="Time" Precision="7" >
+            <Documentation>
+              <Summary>休憩</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="true" >
+            <Documentation>
+              <Summary>備考</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="CreateDttm" Type="DateTime" Nullable="false" Precision="7" >
+            <Documentation>
+              <Summary>作成日時</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="UpdateDttm" Type="DateTime" Nullable="false" Precision="7" ConcurrencyMode="Fixed" >
+            <Documentation>
+              <Summary>更新日時</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="UpdateUserId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" ConcurrencyMode="Fixed" >
+            <Documentation>
+              <Summary>更新ユーザーID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="WorkNo" Type="Int32" Nullable="false" >
+            <Documentation>
+              <Summary>行</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="DepartmentCd" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" >
+            <Documentation>
+              <Summary>部署コード</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="DeleteFlg" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" >
+            <Documentation>
+              <Summary>削除フラグ</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="HolidayKind" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" >
+            <Documentation>
+              <Summary>休日区分</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="WeekStartDate" Type="DateTime" Nullable="false" Precision="3" >
+            <Documentation>
+              <Summary>週開始日</Summary>
+            </Documentation>
+          </Property>
+        </EntityType>
+        <EntityType Name="V200AttendanceTime">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="WorkYear" />
+            <PropertyRef Name="WorkMonth" />
+            <PropertyRef Name="WorkDay" />
+            <PropertyRef Name="WorkNo" />
+          </Key>
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" >
+            <Documentation>
+              <Summary>ユーザーID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="WorkYear" Type="Int32" Nullable="false" >
+            <Documentation>
+              <Summary>年</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="WorkMonth" Type="Int32" Nullable="false" >
+            <Documentation>
+              <Summary>月</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="WorkDay" Type="Int32" Nullable="false" >
+            <Documentation>
+              <Summary>日</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="WorkNo" Type="Int32" Nullable="false" >
+            <Documentation>
+              <Summary>行</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="WorkKind" Type="String" MaxLength="2" FixedLength="false" Unicode="false" >
+            <Documentation>
+              <Summary>勤務区分</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="DepartmentCd" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" >
+            <Documentation>
+              <Summary>部署コード</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="WeekStartDate" Type="DateTime" Nullable="false" Precision="3" >
+            <Documentation>
+              <Summary>週開始日</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="HolidayKind" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" >
+            <Documentation>
+              <Summary>休日区分</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="StartTime" Type="Time" Precision="7" >
+            <Documentation>
+              <Summary>開始</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="EndTime" Type="Time" Precision="7" >
+            <Documentation>
+              <Summary>終了</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="RestTime" Type="Time" Precision="7" >
+            <Documentation>
+              <Summary>休憩</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="true" >
+            <Documentation>
+              <Summary>備考</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="DeleteFlg" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" >
+            <Documentation>
+              <Summary>削除フラグ</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="CreateDttm" Type="DateTime" Nullable="false" Precision="7" >
+            <Documentation>
+              <Summary>作成日時</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="UpdateDttm" Type="DateTime" Nullable="false" Precision="7" >
+            <Documentation>
+              <Summary>更新日時</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="UpdateUserId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" >
+            <Documentation>
+              <Summary>更新ユーザーID</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="WorkKindName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" >
+            <Documentation>
+              <Summary>勤務区分</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="HolidayKindName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" >
+            <Documentation>
+              <Summary>休日区分</Summary>
+            </Documentation>
+          </Property>
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -141,20 +450,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="AttendanceDbModelStoreContainer" CdmEntityContainer="AttendanceDbEntities">
-          <EntitySetMapping Name="T20_ATTENDANCE_TIME">
-            <EntityTypeMapping TypeName="AttendanceDbModel.T20AttendanceTime">
-              <MappingFragment StoreEntitySet="T20_ATTENDANCE_TIME">
-                <ScalarProperty Name="UserId" ColumnName="USER_ID" />
-                <ScalarProperty Name="WorkYear" ColumnName="WORK_YEAR" />
-                <ScalarProperty Name="WorkMonth" ColumnName="WORK_MONTH" />
-                <ScalarProperty Name="WorkDay" ColumnName="WORK_DAY" />
-                <ScalarProperty Name="StartTime" ColumnName="START_TIME" />
-                <ScalarProperty Name="EndTime" ColumnName="END_TIME" />
-                <ScalarProperty Name="RestTime" ColumnName="REST_TIME" />
-                <ScalarProperty Name="Remarks" ColumnName="REMARKS" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="M101_USER">
             <EntityTypeMapping TypeName="AttendanceDbModel.M101User">
               <MappingFragment StoreEntitySet="M101_USER">
@@ -193,6 +488,76 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="M201_CODE_MST">
+            <EntityTypeMapping TypeName="AttendanceDbModel.M201CodeMst">
+              <MappingFragment StoreEntitySet="M201_CODE_MST">
+                <ScalarProperty Name="Remarks" ColumnName="REMARKS" />
+                <ScalarProperty Name="Name" ColumnName="NAME" />
+                <ScalarProperty Name="Cd" ColumnName="CD" />
+                <ScalarProperty Name="CdKind" ColumnName="CD_KIND" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V103_USER_DEPARTMENT">
+            <EntityTypeMapping TypeName="AttendanceDbModel.V103UserDepartment">
+              <MappingFragment StoreEntitySet="V103_USER_DEPARTMENT">
+                <ScalarProperty Name="PositionName" ColumnName="POSITION_NAME" />
+                <ScalarProperty Name="PositionCd" ColumnName="POSITION_CD" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DEPARTMENT_NAME" />
+                <ScalarProperty Name="DepartmentCd" ColumnName="DEPARTMENT_CD" />
+                <ScalarProperty Name="DeleteFlg" ColumnName="DELETE_FLG" />
+                <ScalarProperty Name="UserId" ColumnName="USER_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T200_ATTENDANCE_TIME">
+            <EntityTypeMapping TypeName="AttendanceDbModel.T200AttendanceTime">
+              <MappingFragment StoreEntitySet="T200_ATTENDANCE_TIME">
+                <ScalarProperty Name="WeekStartDate" ColumnName="WEEK_START_DATE" />
+                <ScalarProperty Name="HolidayKind" ColumnName="HOLIDAY_KIND" />
+                <ScalarProperty Name="DeleteFlg" ColumnName="DELETE_FLG" />
+                <ScalarProperty Name="DepartmentCd" ColumnName="DEPARTMENT_CD" />
+                <ScalarProperty Name="WorkNo" ColumnName="WORK_NO" />
+                <ScalarProperty Name="UpdateUserId" ColumnName="UPDATE_USER_ID" />
+                <ScalarProperty Name="UpdateDttm" ColumnName="UPDATE_DTTM" />
+                <ScalarProperty Name="CreateDttm" ColumnName="CREATE_DTTM" />
+                <ScalarProperty Name="Remarks" ColumnName="REMARKS" />
+                <ScalarProperty Name="RestTime" ColumnName="REST_TIME" />
+                <ScalarProperty Name="EndTime" ColumnName="END_TIME" />
+                <ScalarProperty Name="StartTime" ColumnName="START_TIME" />
+                <ScalarProperty Name="WorkKind" ColumnName="WORK_KIND" />
+                <ScalarProperty Name="WorkDay" ColumnName="WORK_DAY" />
+                <ScalarProperty Name="WorkMonth" ColumnName="WORK_MONTH" />
+                <ScalarProperty Name="WorkYear" ColumnName="WORK_YEAR" />
+                <ScalarProperty Name="UserId" ColumnName="USER_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V200_ATTENDANCE_TIME">
+            <EntityTypeMapping TypeName="AttendanceDbModel.V200AttendanceTime">
+              <MappingFragment StoreEntitySet="V200_ATTENDANCE_TIME">
+                <ScalarProperty Name="HolidayKindName" ColumnName="HOLIDAY_KIND_NAME" />
+                <ScalarProperty Name="WorkKindName" ColumnName="WORK_KIND_NAME" />
+                <ScalarProperty Name="UpdateUserId" ColumnName="UPDATE_USER_ID" />
+                <ScalarProperty Name="UpdateDttm" ColumnName="UPDATE_DTTM" />
+                <ScalarProperty Name="CreateDttm" ColumnName="CREATE_DTTM" />
+                <ScalarProperty Name="DeleteFlg" ColumnName="DELETE_FLG" />
+                <ScalarProperty Name="Remarks" ColumnName="REMARKS" />
+                <ScalarProperty Name="RestTime" ColumnName="REST_TIME" />
+                <ScalarProperty Name="EndTime" ColumnName="END_TIME" />
+                <ScalarProperty Name="StartTime" ColumnName="START_TIME" />
+                <ScalarProperty Name="HolidayKind" ColumnName="HOLIDAY_KIND" />
+                <ScalarProperty Name="WeekStartDate" ColumnName="WEEK_START_DATE" />
+                <ScalarProperty Name="DepartmentCd" ColumnName="DEPARTMENT_CD" />
+                <ScalarProperty Name="WorkKind" ColumnName="WORK_KIND" />
+                <ScalarProperty Name="WorkNo" ColumnName="WORK_NO" />
+                <ScalarProperty Name="WorkDay" ColumnName="WORK_DAY" />
+                <ScalarProperty Name="WorkMonth" ColumnName="WORK_MONTH" />
+                <ScalarProperty Name="WorkYear" ColumnName="WORK_YEAR" />
+                <ScalarProperty Name="UserId" ColumnName="USER_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -208,7 +573,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="なし" />
       </DesignerInfoPropertySet>

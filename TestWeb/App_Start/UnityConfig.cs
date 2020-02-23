@@ -4,8 +4,10 @@ using TestWeb.Models;
 using TestWeb.Models.Common;
 using TestWeb.Models.Login;
 using TestWeb.Models.Repository;
+using TestWeb.Models.Department;
 using Unity;
 using Unity.AspNet.Mvc;
+using TestWeb.Models.AttendanceTime;
 
 namespace TestWeb
 {
@@ -41,16 +43,6 @@ namespace TestWeb
         /// </remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
-            // ログインサービス
-            container.RegisterType<ILoginService, LoginService>(new PerRequestLifetimeManager());
-
-            // ログインサービス(プロキシ)
-            container.RegisterType<IServiceProxy<ILoginService>, ServiceProxy<ILoginService>>(new PerRequestLifetimeManager());
-
-            // ユーザー情報リポジトリ
-
-            container.RegisterType<IUserInfoRepository, UserInfoRepository>(new PerRequestLifetimeManager());
-
             // DbContext
             // 下記は現時点では、コメントアウトしたRegisterTypeでも問題ないが、
             // 最終的にはSQLの実行結果をログに出力する設定を入れ込みたいので
@@ -59,6 +51,32 @@ namespace TestWeb
             container.RegisterFactory<AttendanceDbEntities>(c => new AttendanceDbEntities(), new PerRequestLifetimeManager());
 
             container.RegisterFactory<DbContext>(c => c.Resolve<AttendanceDbEntities>());
+
+            // セッションマネージャー
+            container.RegisterType<ISessionManager, SessionManager>(new PerRequestLifetimeManager());
+
+            // ログインサービス
+            container.RegisterType<ILoginService, LoginService>(new PerRequestLifetimeManager());
+            // ログインサービス(プロキシ)
+            container.RegisterType<IServiceProxy<ILoginService>, ServiceProxy<ILoginService>>(new PerRequestLifetimeManager());
+            // ユーザー情報リポジトリ
+            container.RegisterType<IUserInfoRepository, UserInfoRepository>(new PerRequestLifetimeManager());
+
+            // 所属サービス
+            container.RegisterType<IDepartmentService, DepartmentService>(new PerRequestLifetimeManager());
+            // 所属サービス(プロキシ)
+            container.RegisterType<IServiceProxy<IDepartmentService>, ServiceProxy<IDepartmentService>>(new PerRequestLifetimeManager());
+
+            // 出退勤時間サービス
+            container.RegisterType<IAttendanceTimeService, AttendanceTimeService>(new PerRequestLifetimeManager());
+            // 出退勤時間サービス(プロキシ)
+            container.RegisterType<IServiceProxy<IAttendanceTimeService>, ServiceProxy<IAttendanceTimeService>>(new PerRequestLifetimeManager());
+            // T200出退勤時間リポジトリ
+            container.RegisterType<IT200AttendanceTimeRepository, T200AttendanceTimeRepository>(new PerRequestLifetimeManager());
+            // V200出退勤時間ビューリポジトリ
+            container.RegisterType<IV200AttendanceTimeRepository, V200AttendanceTimeRepository>(new PerRequestLifetimeManager());
+
+
 
         }
     }

@@ -28,10 +28,18 @@ namespace TestWeb.Controllers
         private ControllerSupport _ControllerSupport;
 
         /// <summary>
+        /// セッションマネージャー
+        /// </summary>
+        private ISessionManager _SessionManager;
+
+        /// <summary>
         /// コンストラクター(UnityMVC)
         /// </summary>
-        public LoginController(IServiceProxy<ILoginService> loginService)
+        /// <param name="sessionManager">セッションマネージャー</param>
+        /// <param name="loginService">ログインサービス</param>
+        public LoginController(ISessionManager sessionManager, IServiceProxy<ILoginService> loginService)
         {
+            _SessionManager = sessionManager;
             _LoginService = loginService;
 
             this._ControllerSupport = new ControllerSupport(this);
@@ -81,15 +89,7 @@ namespace TestWeb.Controllers
         [HttpPost]
         public ActionResult Login(LoginInputModel inputModel)
         {
-            // 入力エラーがあった場合
-            if (!this.ModelState.IsValid)
-            {
-                // 初期表示にリダイレクト
-                // リダイレクトするとModelStateが失われ、入力内容がViewに反映されなくなるのでModelStateを退避する。
-                this._ControllerSupport.SaveMessageForRedirect();
-                return RedirectToAction("Index");
-            }
-
+            // 入力エラーがない場合
             if (this.ModelState.IsValid)
             {
                 // ログイン
@@ -104,8 +104,14 @@ namespace TestWeb.Controllers
                     this.Response.AppendCookie(new HttpCookie("UserId", inputModel.UserId));
 
                     // ユーザー情報をセッションに格納する
-                    SessionUtil.SetUserInfoModel(userInfoModel);
+                    this._SessionManager.SetUserInfoModel(userInfoModel);
 
+                    // カレントの所属が未定の場合（所属が複数ある場合）
+                    if (string.IsNullOrEmpty(userInfoModel.CurrentDepartmentCd))
+                    {
+                        // 所属選択画面に遷移する
+                        return RedirectToAction("Index", "Department", null);
+                    }
                     // Top画面にリダイレクトする
                     return RedirectToAction("Index", "Top", null);
                 }

@@ -1,0 +1,76 @@
+﻿@model TestWeb.Models.Department.ViewModel.DepartmentViewModel
+
+@{
+    ViewBag.Title = "所属選択画面";
+}
+
+<div class="form-horizontal">
+    <h2>所属選択画面</h2>
+    <h4>所属・役職選択</h4>
+    <hr />
+
+    @using (Html.BeginForm("SelectDepartment", "Department"))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        </div>
+
+        <table class="table">
+            <tr>
+                <th>
+                    選択
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserDepartmentList.First().DepartmentCd)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserDepartmentList.First().DepartmentName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserDepartmentList.First().PositionCd)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserDepartmentList.First().PositionName)
+                </th>
+                <th></th>
+            </tr>
+
+            @{
+                int i = 0;
+            }
+            @foreach (var item in Model.UserDepartmentList)
+            {
+                <tr>
+                    <td>
+                        @Html.RadioButton("SelectNumber", i);
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepartmentCd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepartmentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PositionCd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PositionName)
+                    </td>
+                </tr>
+                i++;
+            }
+
+        </table>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-7">
+                <input type="submit" value="選択" class="btn btn-default" />
+            </div>
+        </div>
+
+    }
+</div>
+
+

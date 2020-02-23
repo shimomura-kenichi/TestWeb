@@ -4,13 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TestWeb.Models.Attributes;
+using TestWeb.Models.Common;
 
 namespace TestWeb.Controllers
 {
     public class TopController : Controller
     {
         [HttpGet]
-        [PositionAuthorize(Roles = "01")]
+        [PositionAuthorize(Roles = Constants.ROLE_EMPLOYEE)]
         // GET: Top
         public ActionResult Index()
         {

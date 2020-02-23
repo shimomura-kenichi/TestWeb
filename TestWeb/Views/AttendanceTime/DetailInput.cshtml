@@ -1,0 +1,86 @@
+﻿@model TestWeb.Models.AttendanceTime.ViewModel.AttendanceTimeModel
+
+<div class = "form-horizontal">
+
+    @using (Ajax.BeginForm("RegistDetail", "AttendanceTime", new AjaxOptions { UpdateTargetId = "DetailInput", HttpMethod = "POST", OnSuccess = "onDetailRegistResult" }, new { id = "DetailRegistForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <hr />
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <span>@Model.WorkYear</span>/<span>@Model.WorkMonth</span>/<span>@Model.WorkDay</span>(<span>@Model.WeekDay</span>)
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.WorkKind, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.WorkKind, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.HolidayKind, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.HolidayKind, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.RestTime, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.RestTime, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label" })
+                <div class="form-group">
+                    @Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+        </div>
+
+
+        @Html.HiddenFor(model => model.UpdateUserId)
+        @Html.HiddenFor(model => model.UpdateDttmStr)
+        @Html.HiddenFor(model => model.UserId)
+        @Html.HiddenFor(model => model.WorkYear)
+        @Html.HiddenFor(model => model.WorkMonth)
+        @Html.HiddenFor(model => model.WorkDay)
+        @Html.HiddenFor(model => model.WorkNo)
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" value="1" class="btn btn-default">登録</button>
+                <button type="submit" value="2" class="btn btn-default">登録して次へ</button>
+            </div>
+        </div>
+    }
+</div>
+

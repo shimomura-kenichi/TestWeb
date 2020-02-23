@@ -8,15 +8,15 @@ using System.Web.SessionState;
 namespace TestWeb.Models.Common
 {
     /// <summary>
-    /// セッションユーティリティ
+    /// セッション管理
     /// </summary>
-    public static class SessionUtil
+    public class SessionManager : ISessionManager
     {
         /// <summary>
         /// ユーザー情報モデル取得
         /// </summary>
         /// <returns>ユーザー情報</returns>
-        public static UserInfoModel GetUserInfoModel()
+        public UserInfoModel GetUserInfoModel()
         {
             HttpSessionState session = HttpContext.Current.Session;
             // ユーザー情報をセッションから取得する
@@ -29,11 +29,23 @@ namespace TestWeb.Models.Common
         }
 
         /// <summary>
+        /// ユーザー情報モデル破棄
+        /// </summary>
+        public void ClearUserInfoModel()
+        {
+            HttpSessionState session = HttpContext.Current.Session;
+            session.Remove("UserInfoModel");
+
+            // 認証
+            FormsAuthentication.SignOut();
+        }
+
+        /// <summary>
         /// ユーザー情報モデル設定
         /// </summary>
         /// <param name="session">セッション</param>
         /// <param name="userInfoModel">ユーザー情報</param>
-        public static void SetUserInfoModel(UserInfoModel userInfoModel)
+        public void SetUserInfoModel(UserInfoModel userInfoModel)
         {
             HttpSessionState session = HttpContext.Current.Session;
 

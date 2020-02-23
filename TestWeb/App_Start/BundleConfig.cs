@@ -13,10 +13,13 @@ namespace TestWeb
             UpdateDateBundleTransform transform = new UpdateDateBundleTransform();
 
             AddBundle(bundles, new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"), transform);
+                        "~/Scripts/jquery-{version}.js", "~/Scripts/jquery.unobtrusive-ajax.js"), transform);
 
             AddBundle(bundles, new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"), transform);
+
+            AddBundle(bundles, new ScriptBundle("~/bundles/jqueryui").Include(
+            "~/Scripts/jquery-ui.js"), transform);
 
             // 開発と学習には、Modernizr の開発バージョンを使用します。次に、実稼働の準備が
             // 運用の準備が完了したら、https://modernizr.com のビルド ツールを使用し、必要なテストのみを選択します。
@@ -28,11 +31,22 @@ namespace TestWeb
 
             AddBundle(bundles, new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"), transform);
+                      "~/Content/site.css",
+                      "~/Content/jquery-ui.css",
+                      "~/Content/jquery-ui.structure.css",
+                      "~/Content/jquery-ui.theme.css"
+                      ), transform);
 
             // 画面単位のバンドル
             AddBundle(bundles, new StyleBundle("~/Content/login").Include(
                       "~/Content/Site-Login.css"), transform);
+
+            // 出退勤時間
+            AddBundle(bundles, new StyleBundle("~/Content/Site-AttendanceTime").Include(
+                      "~/Content/Site-AttendanceTime.css"), transform);
+            AddBundle(bundles, new ScriptBundle("~/bundles/app-AttendanceTime").Include(
+                      "~/Scripts/app-AttendanceTime.js"), transform);
+
 
         }
         /// <summary>

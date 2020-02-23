@@ -25,9 +25,12 @@ namespace TestWeb.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<T20AttendanceTime> T20_ATTENDANCE_TIME { get; set; }
         public virtual DbSet<M101User> M101_USER { get; set; }
         public virtual DbSet<M102UserAuth> M102_USER_AUTH { get; set; }
         public virtual DbSet<M103UserDepartment> M103_USER_DEPARTMENT { get; set; }
+        public virtual DbSet<M201CodeMst> M201_CODE_MST { get; set; }
+        public virtual DbSet<V103UserDepartment> V103_USER_DEPARTMENT { get; set; }
+        public virtual DbSet<T200AttendanceTime> T200_ATTENDANCE_TIME { get; set; }
+        public virtual DbSet<V200AttendanceTime> V200_ATTENDANCE_TIME { get; set; }
     }
 }

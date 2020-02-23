@@ -151,8 +151,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Controllers\AttendanceTimeController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\LogOffController.cs" />
     <Compile Include="Controllers\TopController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -172,16 +175,28 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AttendanceDb.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\AttendanceTime\AttendanceTimeConditionModel.cs" />
+    <Compile Include="Models\AttendanceTime\InputModel\AttendanceTimeKeyInputModel.cs" />
+    <Compile Include="Models\AttendanceTime\ViewModel\AttendanceTimeModel.cs" />
+    <Compile Include="Models\AttendanceTime\AttendanceTimeService.cs" />
+    <Compile Include="Models\AttendanceTime\IAttendanceTimeService.cs" />
+    <Compile Include="Models\AttendanceTime\InputModel\AttendanceTimeInputModel.cs" />
+    <Compile Include="Models\AttendanceTime\ViewModel\AttendanceTimeViewModel.cs" />
     <Compile Include="Models\Attributes\PositionAuthorizeAttribute.cs" />
     <Compile Include="Models\Attributes\PositionRoleProvider.cs" />
+    <Compile Include="Models\Attributes\TimeValidationAttribute.cs" />
     <Compile Include="Models\Attributes\TransactionStart.cs" />
     <Compile Include="Models\Attributes\UpdateDateBundleTransform.cs" />
+    <Compile Include="Models\Common\Constants.cs" />
     <Compile Include="Models\Common\ControllerSupport.cs" />
+    <Compile Include="Models\Common\DateConvUtil.cs" />
     <Compile Include="Models\Common\IService.cs" />
     <Compile Include="Models\Common\IServiceProxy.cs" />
+    <Compile Include="Models\Common\ISessionManager.cs" />
+    <Compile Include="Models\Common\ModelUtil.cs" />
     <Compile Include="Models\Common\ServiceMessage.cs" />
     <Compile Include="Models\Common\ServiceProxy.cs" />
-    <Compile Include="Models\Common\SessionUtil.cs" />
+    <Compile Include="Models\Common\SessionManager.cs" />
     <Compile Include="Models\Common\UserDepartmentModel.cs" />
     <Compile Include="Models\Common\UserInfoModel.cs" />
     <Compile Include="Models\Error\ViewModel\ErrorViewModel.cs" />
@@ -199,10 +214,27 @@
     <Compile Include="Models\M103UserDepartment.cs">
       <DependentUpon>AttendanceDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\M201CodeMst.cs">
+      <DependentUpon>AttendanceDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repository\IT200AttendanceTimeRepository.cs" />
     <Compile Include="Models\Repository\IUserInfoRepository.cs" />
+    <Compile Include="Models\Repository\IV200AttendanceTimeRepository.cs" />
     <Compile Include="Models\Repository\RepositoryConst.cs" />
+    <Compile Include="Models\Repository\T200AttendanceTimeRepository.cs" />
     <Compile Include="Models\Repository\UserInfoRepository.cs" />
-    <Compile Include="Models\T20AttendanceTime.cs">
+    <Compile Include="Models\Department\InputModel\DepartmentSelectInputModel.cs" />
+    <Compile Include="Models\Department\IDepartmentService.cs" />
+    <Compile Include="Models\Department\DepartmentService.cs" />
+    <Compile Include="Models\Department\ViewModel\DepartmentViewModel.cs" />
+    <Compile Include="Models\Repository\V200AttendanceTimeRepository.cs" />
+    <Compile Include="Models\T200AttendanceTime.cs">
+      <DependentUpon>AttendanceDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\V103UserDepartment.cs">
+      <DependentUpon>AttendanceDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\V200AttendanceTime.cs">
       <DependentUpon>AttendanceDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -221,6 +253,16 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.structure.css" />
+    <Content Include="Content\jquery-ui.theme.css" />
+    <Content Include="Content\Site-AttendanceTime.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -235,6 +277,7 @@
       <DependentUpon>AttendanceDb.edmx</DependentUpon>
       <LastGenOutput>AttendanceDb.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\app-AttendanceTime.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\AttendanceDb.edmx">
@@ -250,6 +293,9 @@
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -269,6 +315,11 @@
     <Content Include="Views\Top\Top.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Department\Department.cshtml" />
+    <Content Include="Views\LogOff\LogOff.cshtml" />
+    <Content Include="Views\AttendanceTime\AttendanceTime.cshtml" />
+    <Content Include="Views\AttendanceTime\DetailInput.cshtml" />
+    <Content Include="Views\AttendanceTime\ListRow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

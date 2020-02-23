@@ -13,17 +13,11 @@ namespace TestWeb.Models
     using System.Collections.Generic;
     using System.ComponentModel;
     
-    public partial class T20AttendanceTime
+    public partial class M201CodeMst
     {
-        ///<summary>ユーザーID</summary>
-        [DisplayName("ユーザーID")]
-        public string UserId { get; set; }
-        public int WorkYear { get; set; }
-        public int WorkMonth { get; set; }
-        public int WorkDay { get; set; }
-        public Nullable<System.TimeSpan> StartTime { get; set; }
-        public Nullable<System.TimeSpan> EndTime { get; set; }
-        public Nullable<System.TimeSpan> RestTime { get; set; }
+        public string CdKind { get; set; }
+        public string Cd { get; set; }
+        public string Name { get; set; }
         public string Remarks { get; set; }
     }
 }

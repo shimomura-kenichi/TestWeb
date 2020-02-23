@@ -66,11 +66,13 @@ namespace TestWeb.Models.Repository
             if (userInfoModel != null)
             {
                 // 所属情報を取得する
-                List<UserDepartmentModel> userDepartmentList = _DbContext.M103_USER_DEPARTMENT
+                List<UserDepartmentModel> userDepartmentList = _DbContext.V103_USER_DEPARTMENT
                     .Where(m => m.UserId == userId && m.DeleteFlg == "0").Select(m => new UserDepartmentModel()
                     {
                         DepartmentCd = m.DepartmentCd,
-                        PositionCd = m.PositionCd
+                        DepartmentName = m.DepartmentName,
+                        PositionCd = m.PositionCd,
+                        PositionName = m.PositionName
                     }).ToList();
                 userInfoModel.UserDepartmentList = userDepartmentList;
 

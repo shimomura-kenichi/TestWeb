@@ -5,10 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="19da4639311b4eb28038d1e816710383" Name="Diagram1">
-        <EntityTypeShape EntityType="AttendanceDbModel.T20AttendanceTime" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AttendanceDbModel.M101User" Width="2.375" PointX="3.375" PointY="0.75" />
         <EntityTypeShape EntityType="AttendanceDbModel.M102UserAuth" Width="2.375" PointX="3.375" PointY="4.25" />
         <EntityTypeShape EntityType="AttendanceDbModel.M103UserDepartment" Width="1.5" PointX="0.75" PointY="4" />
+        <EntityTypeShape EntityType="AttendanceDbModel.M201CodeMst" Width="2.75" PointX="6.375" PointY="0.75" />
+        <EntityTypeShape EntityType="AttendanceDbModel.V103UserDepartment" Width="2.75" PointX="6.375" PointY="3.75" />
+        <EntityTypeShape EntityType="AttendanceDbModel.T200AttendanceTime" Width="3" PointX="10" PointY="0.75" />
+        <EntityTypeShape EntityType="AttendanceDbModel.V200AttendanceTime" Width="1.5" PointX="7.625" PointY="6.25" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using TestWeb.Models.Common;
+using Unity;
 
 namespace TestWeb.Models.Attributes
 {
@@ -46,7 +47,10 @@ namespace TestWeb.Models.Attributes
         /// <returns></returns>
         public override string[] GetRolesForUser(string username)
         {
-            UserInfoModel userInfoModel = SessionUtil.GetUserInfoModel();
+            // UnityMvcからセッションマネージャーを取得する
+            ISessionManager sessionManager = UnityConfig.Container.Resolve<ISessionManager>();
+            
+            UserInfoModel userInfoModel = sessionManager.GetUserInfoModel();
             return new string[] { userInfoModel.CurrentPositionCd };
         }
 

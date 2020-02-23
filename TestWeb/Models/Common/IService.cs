@@ -14,7 +14,7 @@ namespace TestWeb.Models.Common
         /// <summary>
         /// サービスメッセージ
         /// </summary>
-        ServiceMessage ServiceMessage {get;}
+        ServiceMessage ServiceMessage { get; set; }
 
         /// <summary>
         /// ユーザー情報
