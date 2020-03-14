@@ -47,7 +47,15 @@ namespace TestWeb
                     var httpException = ex as HttpException;
                     if (httpException == null)
                     {
-                        errorMessage = Resources.MEP0006;
+                        var argumentException = ex as ArgumentException;
+                        if (argumentException != null)
+                        {
+                            // 不正なアクセス
+                            errorMessage = Resources.MEP0005;
+                        } else
+                        {
+                            errorMessage = Resources.MEP0006;
+                        }
                     }
                     else
                     {

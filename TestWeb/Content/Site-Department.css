@@ -1,11 +1,7 @@
 ﻿.select-row tr:hover {
     background-color: lightsteelblue;
 }
+
 .select-row td:hover {
     cursor: pointer;
-}
-
-#DetailRegistForm {
-    width:95%;
-    padding-left:10px;
 }

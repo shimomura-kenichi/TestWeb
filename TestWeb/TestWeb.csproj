@@ -177,6 +177,8 @@
     </Compile>
     <Compile Include="Models\AttendanceTime\AttendanceTimeConditionModel.cs" />
     <Compile Include="Models\AttendanceTime\InputModel\AttendanceTimeKeyInputModel.cs" />
+    <Compile Include="Models\AttendanceTime\InputModel\AttendanceTimeSelectMonthInputModel.cs" />
+    <Compile Include="Models\AttendanceTime\ViewModel\AttendanceTimeDetailViewModel.cs" />
     <Compile Include="Models\AttendanceTime\ViewModel\AttendanceTimeModel.cs" />
     <Compile Include="Models\AttendanceTime\AttendanceTimeService.cs" />
     <Compile Include="Models\AttendanceTime\IAttendanceTimeService.cs" />
@@ -217,9 +219,11 @@
     <Compile Include="Models\M201CodeMst.cs">
       <DependentUpon>AttendanceDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Repository\IM201CodeMstRepository.cs" />
     <Compile Include="Models\Repository\IT200AttendanceTimeRepository.cs" />
     <Compile Include="Models\Repository\IUserInfoRepository.cs" />
     <Compile Include="Models\Repository\IV200AttendanceTimeRepository.cs" />
+    <Compile Include="Models\Repository\M201CodeMstRepository.cs" />
     <Compile Include="Models\Repository\RepositoryConst.cs" />
     <Compile Include="Models\Repository\T200AttendanceTimeRepository.cs" />
     <Compile Include="Models\Repository\UserInfoRepository.cs" />
@@ -263,6 +267,7 @@
     <Content Include="Content\jquery-ui.structure.css" />
     <Content Include="Content\jquery-ui.theme.css" />
     <Content Include="Content\Site-AttendanceTime.css" />
+    <Content Include="Content\Site-Department.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -277,7 +282,9 @@
       <DependentUpon>AttendanceDb.edmx</DependentUpon>
       <LastGenOutput>AttendanceDb.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\app-AttendanceTime-DetailInput.js" />
     <Content Include="Scripts\app-AttendanceTime.js" />
+    <Content Include="Scripts\app-Department.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\AttendanceDb.edmx">
@@ -287,6 +294,8 @@
     <Content Include="Models\AttendanceDb.edmx.diagram">
       <DependentUpon>AttendanceDb.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\Azure.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -320,6 +329,9 @@
     <Content Include="Views\AttendanceTime\AttendanceTime.cshtml" />
     <Content Include="Views\AttendanceTime\DetailInput.cshtml" />
     <Content Include="Views\AttendanceTime\ListRow.cshtml" />
+    <None Include="Web.Azure.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

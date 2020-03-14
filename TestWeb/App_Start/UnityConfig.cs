@@ -55,6 +55,10 @@ namespace TestWeb
             // セッションマネージャー
             container.RegisterType<ISessionManager, SessionManager>(new PerRequestLifetimeManager());
 
+            // コードマスターリポジトリ
+            container.RegisterType<IM201CodeMstRepository, M201CodeMstRepository>(new PerRequestLifetimeManager());
+
+
             // ログインサービス
             container.RegisterType<ILoginService, LoginService>(new PerRequestLifetimeManager());
             // ログインサービス(プロキシ)

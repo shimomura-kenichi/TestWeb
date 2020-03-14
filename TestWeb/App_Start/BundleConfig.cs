@@ -38,8 +38,16 @@ namespace TestWeb
                       ), transform);
 
             // 画面単位のバンドル
+            
+            // ログイン
             AddBundle(bundles, new StyleBundle("~/Content/login").Include(
                       "~/Content/Site-Login.css"), transform);
+
+            // 所属選択
+            AddBundle(bundles, new StyleBundle("~/Content/Site-Department").Include(
+                      "~/Content/Site-Department.css"), transform);
+            AddBundle(bundles, new ScriptBundle("~/bundles/app-Department").Include(
+                      "~/Scripts/app-Department.js"), transform);
 
             // 出退勤時間
             AddBundle(bundles, new StyleBundle("~/Content/Site-AttendanceTime").Include(

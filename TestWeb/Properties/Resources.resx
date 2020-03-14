@@ -127,7 +127,7 @@
     <value>{0}を選択してください。</value>
   </data>
   <data name="MEI0010" xml:space="preserve">
-    <value>{0]は数字で入力してください。</value>
+    <value>{0}は数字で入力してください。</value>
   </data>
   <data name="MEI0011" xml:space="preserve">
     <value>{0}は時間の形式(09:00 or 0900 or 9:00 or 900)で入力してください。</value>
@@ -149,5 +149,8 @@
   </data>
   <data name="MEP0008" xml:space="preserve">
     <value>該当するデータは存在しません。</value>
+  </data>
+  <data name="MEP0009" xml:space="preserve">
+    <value>1日に必ず１明細は必要なため削除できません。</value>
   </data>
 </root>

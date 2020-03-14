@@ -9,6 +9,37 @@
     @Scripts.Render("~/bundles/app-AttendanceTime")
 }
 
+    <div class="form-horizontal">
+
+        @using (Html.BeginForm("SelectMonth", "AttendanceTime", FormMethod.Get))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+            @Html.HiddenFor(m => m.UserId)
+            @Html.HiddenFor(m => m.WorkYear)
+            @Html.HiddenFor(m => m.WorkMonth)
+
+            <div class="form-group">
+                <div class="col-xs-10">
+                    <button id="DetailRegistBtn" name="MonthBtn" type="submit" value="1" class="btn btn-default">◀ 前月</button>
+                    <span>@Model.WorkYear</span>年<span>@Model.WorkMonth</span>月<span style="margin-left:20px;">@Model.UserName</span>
+                    <button id="DetailRegistBtn" name="MonthBtn" type="submit" value="2" class="btn btn-default">次月 ▶</button>
+                </div>
+            </div>
+
+            for (int i = 0; i < Model.AttendanceTimeList.Count; i++)
+            {
+                var item = Model.AttendanceTimeList;
+                @Html.EditorFor(m => item[i].Remarks)
+            }
+
+
+        }
+
+    </div>
+
 
 <table id="AttendanceTimeList" class="table select-row">
     @{

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using TestWeb.Models.AttendanceTime;
 using TestWeb.Models.AttendanceTime.InputModel;
@@ -61,6 +62,38 @@ namespace TestWeb.Controllers
         }
 
         /// <summary>
+        /// 月選択
+        /// </summary>
+        /// <param name="inputModel">年月選択</param>
+        /// <returns>出退勤時間ビュー</returns>
+        [HttpGet]
+        [PositionAuthorize(Roles = Constants.ROLE_EMPLOYEE)]
+        public ActionResult SelectMonth(AttendanceTimeSelectMonthInputModel inputModel)
+        {
+            AttendanceTimeViewModel viewModel = null;
+            if (!ModelState.IsValid)
+            {
+                // 通常の方法では入力エラーにならないため例外を発生させる
+                throw new ArgumentException();
+            }
+
+            viewModel = this._ControllerSupport.InvokeServiceAndSetMessage(
+            _AttendanceTimeService, m => m.SelectMonth(inputModel), _SessionManager.GetUserInfoModel(), string.Empty);
+
+            if (ModelState.IsValid)
+            {
+                ModelState.Clear();
+            } else
+            {
+                // 通常の方法では入力エラーにならないため例外を発生させる
+                throw new ArgumentException();
+            }
+
+            return View("AttendanceTime", viewModel);
+
+        }
+
+        /// <summary>
         /// 明細書き換え（１件分）
         /// </summary>
         /// <param name="inputModel">キー情報</param>
@@ -70,16 +103,14 @@ namespace TestWeb.Controllers
         public ActionResult ReDrowDetail(AttendanceTimeKeyInputModel inputModel)
         {
             AttendanceTimeModel viewModel = null;
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                viewModel = this._ControllerSupport.InvokeServiceAndSetMessage(
-                    _AttendanceTimeService, m => m.GetDetail(inputModel), _SessionManager.GetUserInfoModel(), string.Empty);
+                // 通常の方法では入力エラーにならないため例外を発生させる
+                throw new ArgumentException();
             }
-            else
-            {
-                viewModel = new AttendanceTimeModel();
-                ModelState.AddModelError(string.Empty, Resources.MEP0005);
-            }
+            viewModel = this._ControllerSupport.InvokeServiceAndSetMessage(
+                _AttendanceTimeService, m => m.GetDetail(inputModel), _SessionManager.GetUserInfoModel(), string.Empty);
+            ModelState.Clear();
 
             return PartialView("ListRow", viewModel);
         }
@@ -92,21 +123,19 @@ namespace TestWeb.Controllers
         [PositionAuthorize(Roles = Constants.ROLE_EMPLOYEE)]
         public ActionResult DetailInputIndex(AttendanceTimeKeyInputModel inputModel)
         {
-            AttendanceTimeModel viewModel = null;
-            if (ModelState.IsValid)
+            AttendanceTimeDetailViewModel viewModel = null;
+            if (!ModelState.IsValid)
             {
-                ModelState.Clear();
-
-                // リダイレクトされた場合でModelStateが引き渡された場合はModelStateをマージする。
-                this._ControllerSupport.LoadMessageForRedirect();
-
-                viewModel = this._ControllerSupport.InvokeServiceAndSetMessage(
-                    _AttendanceTimeService, m => m.InitDetail(inputModel), _SessionManager.GetUserInfoModel(), string.Empty);
-            } else
-            {
-                viewModel = new AttendanceTimeModel();
-                ModelState.AddModelError(string.Empty, Resources.MEP0005);
+                // 通常の方法では入力エラーにならないため例外を発生させる
+                throw new ArgumentException();
             }
+            ModelState.Clear();
+
+            // リダイレクトされた場合でModelStateが引き渡された場合はModelStateをマージする。
+            this._ControllerSupport.LoadMessageForRedirect();
+
+            viewModel = this._ControllerSupport.InvokeServiceAndSetMessage(
+                _AttendanceTimeService, m => m.InitDetail(inputModel), _SessionManager.GetUserInfoModel(), string.Empty);
 
             return PartialView("DetailInput", viewModel);
         }
@@ -114,17 +143,20 @@ namespace TestWeb.Controllers
         /// <summary>
         /// 出退勤登録
         /// </summary>
+        /// <param name="detailModel">入力モデル</param>
         /// <returns></returns>
         [HttpPost]
         [PositionAuthorize(Roles = Constants.ROLE_EMPLOYEE)]
-        public ActionResult RegistDetail(AttendanceTimeInputModel inputModel)
+        public ActionResult RegistDetail(AttendanceTimeInputModel detailModel)
         {
             // 入力エラーがない場合
             AttendanceTimeModel viewModel = null;
             if (ModelState.IsValid)
             {
                 viewModel = this._ControllerSupport.InvokeServiceAndSetMessage(
-                    _AttendanceTimeService, m => m.UpdateDetail(inputModel), _SessionManager.GetUserInfoModel(), string.Empty);
+                    _AttendanceTimeService, m => m.UpdateDetail(detailModel), _SessionManager.GetUserInfoModel(), string.Empty);
+
+                viewModel.ProcBtn = detailModel.ProcBtn;
 
             }
             if (ModelState.IsValid)
@@ -135,9 +167,73 @@ namespace TestWeb.Controllers
                 // エラー時はリダイレクトする
                 this._ControllerSupport.SaveMessageForRedirect();
                 AttendanceTimeKeyInputModel keyInputModel = new AttendanceTimeKeyInputModel();
-                ModelUtil.CopyModelToModel(inputModel, keyInputModel);
+                ModelUtil.CopyModelToModel(detailModel, keyInputModel);
                 return RedirectToAction("DetailInputIndex", keyInputModel);
             }
         }
+
+        /// <summary>
+        /// 空行追加
+        /// </summary>
+        /// <param name="keyModel">入力モデル</param>
+        /// <returns></returns>
+        [HttpPost]
+        [PositionAuthorize(Roles = Constants.ROLE_EMPLOYEE)]
+        public ActionResult AddEmptyDetail(AttendanceTimeKeyInputModel keyModel)
+        {
+            // 入力エラーがない場合
+            AttendanceTimeModel viewModel = null;
+            if (ModelState.IsValid)
+            {
+                viewModel = this._ControllerSupport.InvokeServiceAndSetMessage(
+                    _AttendanceTimeService, m => m.AddEmptyDetail(keyModel), _SessionManager.GetUserInfoModel(), string.Empty);
+            }
+            if (ModelState.IsValid)
+            {
+                return Json(viewModel);
+            }
+            else
+            {
+                // エラー時はメッセージを返却する
+                return Json(new { ErrorMessage = "登録に失敗しました。" });
+            }
+        }
+
+        /// <summary>
+        /// 行削除
+        /// </summary>
+        /// <param name="keyModel">入力モデル</param>
+        /// <returns></returns>
+        [HttpPost]
+        [PositionAuthorize(Roles = Constants.ROLE_EMPLOYEE)]
+        public ActionResult DeleteDetail(AttendanceTimeKeyInputModel keyModel)
+        {
+            // 入力エラーがない場合
+            AttendanceTimeModel viewModel = null;
+            if (ModelState.IsValid)
+            {
+                viewModel = this._ControllerSupport.InvokeServiceAndSetMessage(
+                    _AttendanceTimeService, m => m.DeleteDetail(keyModel), _SessionManager.GetUserInfoModel(), string.Empty);
+            }
+            if (ModelState.IsValid)
+            {
+                return Json(viewModel);
+            }
+            else
+            {
+                // エラー時は先頭のメッセージを返却する
+                string errorMessage = "削除は失敗しました。";
+                foreach (KeyValuePair<string, ModelState> keyVal in ModelState.ToList())
+                {
+                    if (keyVal.Value.Errors.Count > 0)
+                    {
+                        errorMessage = keyVal.Value.Errors[0].ErrorMessage;
+                        break;
+                    }
+                }
+                return Json(new { ErrorMessage = errorMessage });
+            }
+        }
+
     }
 }

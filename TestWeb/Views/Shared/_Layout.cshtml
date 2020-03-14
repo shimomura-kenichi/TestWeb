@@ -13,34 +13,32 @@
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("勤怠管理システム", "Index", "Top", new { area = "" }, new { @class = "navbar-brand" })
-                @ViewBag.Title
-            </div>
+            <div>
+                <div style="text-align: right;">
+                    @{
+                        SessionManager sessionManager = new SessionManager();
+                        UserInfoModel userInfoModel = sessionManager.GetUserInfoModel();
+                        if (userInfoModel != null && userInfoModel.UserId != null)
+                        {
+                            <span class="user-info">@userInfoModel.UserName</span>
+                            @Html.ActionLink("ログオフ", "LogOff", "LogOff", null, new { @class = "btn-success logoff-btn", style = "margin-left:10px;" })
+                            @Html.ActionLink("ホーム", "Index", "Top", null, new { @class = "btn-success logoff-btn", style = "margin-left:10px;" })
+                        }
+                        else
+                        {
+                            <span class="user-info">　</span>
+                        }
+                    }
 
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("ホーム", "Index", "Top")</li>
-                </ul>
+                </div>
+                @Html.ActionLink("【社内管理】", "Index", "Top", new { area = "" }, new { @class = "navbar-brand", style = "padding-top:0px;height: 28px;" })
+                <span class="screen-title">@ViewBag.Title</span>
+
             </div>
-            @{
-                SessionManager sessionManager = new SessionManager();
-                UserInfoModel userInfoModel = sessionManager.GetUserInfoModel();
-                if (userInfoModel != null && userInfoModel.UserId != null)
-                {
-                    @userInfoModel.UserName
-                    @Html.ActionLink("ログオフ", "LogOff", "LogOff")
-                }
-            }
 
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container body-content"  style="margin-top:10px;">
         @RenderBody()
         <hr />
         <footer>

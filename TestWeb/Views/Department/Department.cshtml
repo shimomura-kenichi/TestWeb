@@ -3,13 +3,14 @@
 @{
     ViewBag.Title = "所属選択画面";
 }
+@Styles.Render("~/Content/Site-Department")
+
+@section scripts {
+    @Scripts.Render("~/bundles/app-Department")
+}
 
 <div class="form-horizontal">
-    <h2>所属選択画面</h2>
-    <h4>所属・役職選択</h4>
-    <hr />
-
-    @using (Html.BeginForm("SelectDepartment", "Department"))
+    @using (Html.BeginForm("SelectDepartment", "Department",FormMethod.Get, new {id="DepartmentForm" }))
     {
         @Html.AntiForgeryToken()
 
@@ -17,24 +18,15 @@
             @Html.ValidationSummary(false, "", new { @class = "text-danger" })
         </div>
 
-        <table class="table">
+        <table id="DepartmentList" class="table select-row">
             <tr>
-                <th>
-                    選択
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserDepartmentList.First().DepartmentCd)
-                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.UserDepartmentList.First().DepartmentName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.UserDepartmentList.First().PositionCd)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.UserDepartmentList.First().PositionName)
                 </th>
-                <th></th>
+                <th hidden></th>
             </tr>
 
             @{
@@ -44,32 +36,19 @@
             {
                 <tr>
                     <td>
-                        @Html.RadioButton("SelectNumber", i);
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DepartmentCd)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.DepartmentName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.PositionCd)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.PositionName)
+                    </td>
+                    <td hidden>
+                        <span name="SelectNumber">@i</span>
                     </td>
                 </tr>
                 i++;
             }
 
         </table>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-7">
-                <input type="submit" value="選択" class="btn btn-default" />
-            </div>
-        </div>
-
     }
 </div>
 

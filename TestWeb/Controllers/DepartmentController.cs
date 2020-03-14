@@ -62,7 +62,7 @@ namespace TestWeb.Controllers
             return View("Department", viewModel);
         }
 
-        [HttpPost]
+        [HttpGet]
         [PositionAuthorize(Roles = "")]
         public ActionResult SelectDepartment(DepartmentSelectInputModel inputModel)
         {

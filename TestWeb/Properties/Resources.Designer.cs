@@ -88,7 +88,7 @@ namespace TestWeb.Properties {
         }
         
         /// <summary>
-        ///   {0]は数字で入力してください。 に類似しているローカライズされた文字列を検索します。
+        ///   {0}は数字で入力してください。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string MEI0010 {
             get {
@@ -156,6 +156,15 @@ namespace TestWeb.Properties {
         internal static string MEP0008 {
             get {
                 return ResourceManager.GetString("MEP0008", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   1日に必ず１明細は必要なため削除できません。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string MEP0009 {
+            get {
+                return ResourceManager.GetString("MEP0009", resourceCulture);
             }
         }
     }

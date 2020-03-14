@@ -23,11 +23,20 @@ namespace TestWeb.Models.AttendanceTime
         AttendanceTimeViewModel Init();
 
         /// <summary>
+        /// 出退勤時間画面月選択
+        /// </summary>
+        /// <param name="inputModel">入力モデル</param>
+        /// <returns>ビューモデル</returns>
+        [TransactionStart()]
+        AttendanceTimeViewModel SelectMonth(AttendanceTimeSelectMonthInputModel inputModel);
+
+        /// <summary>
         /// 出退勤画面入力画面表示
         /// </summary>
         /// <param name="keyModel">キー情報</param>
         /// <returns>ビューモデル</returns>
-        AttendanceTimeModel InitDetail(AttendanceTimeKeyInputModel keyModel);
+        AttendanceTimeDetailViewModel InitDetail(AttendanceTimeKeyInputModel keyModel);
+
 
         /// <summary>
         /// 明細情報取得

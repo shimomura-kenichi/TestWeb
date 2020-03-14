@@ -73,5 +73,10 @@ namespace TestWeb.Models.AttendanceTime.InputModel
         public string UpdateUserId { get; set; }
         ///<summary>更新日時文字列</summary>
         public string UpdateDttmStr { get; set; }
+
+
+        ///<summary>処理ボタン</summary>
+        public string ProcBtn { get; set; }
+
     }
 }

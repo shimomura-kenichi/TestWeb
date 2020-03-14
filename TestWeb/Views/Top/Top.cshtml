@@ -1,11 +1,9 @@
 ﻿@using TestWeb.Models.Common;
 
 @{
-    ViewBag.Title = "Top";
+    ViewBag.Title = "ホーム画面";
 
 }
 
-<h2>Top</h2>
-@Html.DisplayFor(m => ((UserInfoModel)Session["UserInfoModel"]).UserId)
 
-@Html.ActionLink("出退勤", "Index", "AttendanceTime");
+@Html.ActionLink("出退勤入力", "Index", "AttendanceTime", null, new {@class="btn-primary btn-lg" })
