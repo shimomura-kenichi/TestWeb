@@ -11,7 +11,7 @@ namespace TestWeb.Controllers
     public class TopController : Controller
     {
         [HttpGet]
-        [PositionAuthorize(Roles = Constants.ROLE_EMPLOYEE)]
+        [PositionAuthorize(Roles = Constants.ROLE_ALL)]
         // GET: Top
         public ActionResult Index()
         {

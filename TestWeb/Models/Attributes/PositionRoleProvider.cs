@@ -43,7 +43,7 @@ namespace TestWeb.Models.Attributes
         /// <summary>
         /// ユーザーのロールを取得する
         /// </summary>
-        /// <param name="username">ユーザー名</param>
+        /// <param name="username">ユーザーID</param>
         /// <returns></returns>
         public override string[] GetRolesForUser(string username)
         {
@@ -51,7 +51,13 @@ namespace TestWeb.Models.Attributes
             ISessionManager sessionManager = UnityConfig.Container.Resolve<ISessionManager>();
             
             UserInfoModel userInfoModel = sessionManager.GetUserInfoModel();
-            return new string[] { userInfoModel.CurrentPositionCd };
+
+            string positionCd = null;
+            if (userInfoModel != null && userInfoModel.UserId == username)
+            {
+                positionCd = userInfoModel.CurrentPositionCd;
+            }
+            return new string[] { positionCd };
         }
 
         public override string[] GetUsersInRole(string roleName)

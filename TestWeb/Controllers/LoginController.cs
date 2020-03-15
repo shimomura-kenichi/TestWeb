@@ -100,11 +100,13 @@ namespace TestWeb.Controllers
                 {
                     // ログイン成功時の処理
 
+
                     // UserIdをCookieに保存する
                     this.Response.AppendCookie(new HttpCookie("UserId", inputModel.UserId));
 
                     // ユーザー情報をセッションに格納する
                     this._SessionManager.SetUserInfoModel(userInfoModel);
+
 
                     // カレントの所属が未定の場合（所属が複数ある場合）
                     if (string.IsNullOrEmpty(userInfoModel.CurrentDepartmentCd))

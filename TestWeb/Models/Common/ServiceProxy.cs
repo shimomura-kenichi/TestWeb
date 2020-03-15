@@ -5,11 +5,13 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 using System.Web.UI.WebControls.Expressions;
 using TestWeb.Models.Attributes;
+using TestWeb.Properties;
 using WebGrease;
 
 namespace TestWeb.Models.Common
@@ -154,12 +156,32 @@ namespace TestWeb.Models.Common
                 // DB確定
                 int updateCount = this._DbContext.SaveChanges();
                 result = true;
-            } catch(DbUpdateConcurrencyException ucx)
+            } catch (DbUpdateConcurrencyException ucex)
             {
                 result = false;
 
+                this._Log.Warn(string.Format(Resources.MEL0012, ucex.Message));
+
                 // DbContextにトラッキングされている変更を取り消す
-                CancelTracking(ucx.Entries);
+                CancelTracking(ucex.Entries);
+
+                // ロールバックする
+                if (this._IsTransaction)
+                {
+                    this._Tran.Rollback();
+                }
+            }
+            catch (DbUpdateException uex)
+                when (uex.InnerException?.InnerException is SqlException sqlEx &&
+                  (sqlEx.Number == 2601 || sqlEx.Number == 2627))
+            {
+                // 一意制約違反
+                result = false;
+
+                this._Log.Warn(string.Format(Resources.MEL0012, sqlEx.Message));
+
+                // DbContextにトラッキングされている変更を取り消す
+                CancelTracking(uex.Entries);
 
                 // ロールバックする
                 if (this._IsTransaction)

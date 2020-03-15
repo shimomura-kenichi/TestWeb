@@ -106,6 +106,15 @@ namespace TestWeb.Properties {
         }
         
         /// <summary>
+        ///   以下の楽観ロックエラーが発生しました。{0} に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string MEL0012 {
+            get {
+                return ResourceManager.GetString("MEL0012", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   ユーザーIDまたはパスワードが正しくありません。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string MEP0003 {

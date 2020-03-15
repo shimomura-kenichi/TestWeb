@@ -19,34 +19,40 @@
         </div>
 
         <table id="DepartmentList" class="table select-row">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserDepartmentList.First().DepartmentName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserDepartmentList.First().PositionName)
-                </th>
-                <th hidden></th>
-            </tr>
+            <thead>
 
-            @{
-                int i = 0;
-            }
-            @foreach (var item in Model.UserDepartmentList)
-            {
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DepartmentName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PositionName)
-                    </td>
-                    <td hidden>
-                        <span name="SelectNumber">@i</span>
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserDepartmentList.First().DepartmentName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserDepartmentList.First().PositionName)
+                    </th>
+                    <th hidden></th>
                 </tr>
-                i++;
-            }
+            </thead>
+            <tbody>
+
+                @{
+                    int i = 0;
+                }
+                @foreach (var item in Model.UserDepartmentList)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DepartmentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PositionName)
+                        </td>
+                        <td hidden>
+                            <span name="SelectNumber">@i</span>
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </tbody>
+
 
         </table>
     }

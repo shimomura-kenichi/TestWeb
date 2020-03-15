@@ -39,6 +39,10 @@ namespace TestWeb.Models.Common
         public const string POSITION_CD_MN = "03";
 
         /// <summary>
+        /// ロール:全員
+        /// </summary>
+        public const string ROLE_ALL = "01,02,03,04,05";
+        /// <summary>
         /// ロール:社員
         /// </summary>
         public const string ROLE_EMPLOYEE = "01,02,03,04";

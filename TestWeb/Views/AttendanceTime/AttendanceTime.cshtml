@@ -28,14 +28,6 @@
                     <button id="DetailRegistBtn" name="MonthBtn" type="submit" value="2" class="btn btn-default">次月 ▶</button>
                 </div>
             </div>
-
-            for (int i = 0; i < Model.AttendanceTimeList.Count; i++)
-            {
-                var item = Model.AttendanceTimeList;
-                @Html.EditorFor(m => item[i].Remarks)
-            }
-
-
         }
 
     </div>

@@ -132,6 +132,9 @@
   <data name="MEI0011" xml:space="preserve">
     <value>{0}は時間の形式(09:00 or 0900 or 9:00 or 900)で入力してください。</value>
   </data>
+  <data name="MEL0012" xml:space="preserve">
+    <value>以下の楽観ロックエラーが発生しました。{0}</value>
+  </data>
   <data name="MEP0003" xml:space="preserve">
     <value>ユーザーIDまたはパスワードが正しくありません。</value>
   </data>

@@ -31,9 +31,18 @@
                     }
 
                 </div>
-                @Html.ActionLink("【社内管理】", "Index", "Top", new { area = "" }, new { @class = "navbar-brand", style = "padding-top:0px;height: 28px;" })
-                <span class="screen-title">@ViewBag.Title</span>
+                @{
+                    if (userInfoModel != null && userInfoModel.CurrentDepartmentCd != null)
+                    {
 
+                        @Html.ActionLink("【社内管理】", "Index", "Top", new { area = "" }, new { @class = "navbar-brand", style = "padding-top:0px;height: 28px;" })
+                    }
+                    else
+                    {
+                        <span class="navbar-brand" style = "padding-top:0px;height: 28px;">【社内管理】</span>
+                    }
+                }
+                <span class="screen-title">@ViewBag.Title</span>
             </div>
 
         </div>

@@ -1,4 +1,4 @@
-﻿.select-row tr:hover {
+﻿.select-row tbody tr:hover {
     background-color: lightsteelblue;
 }
 
